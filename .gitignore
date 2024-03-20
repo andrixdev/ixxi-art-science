@@ -72,12 +72,17 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # FMOD (added by Andrix 2023-08-24 based on suggested instructions, with path updated)
+#      (updated by Gahel 2024-03-20 based on suggested instructions)
 
-# FMOD - Never ignore DLLs in the FMOD subfolder.
-!/Libraries/FMOD/**/lib/*
+# Never ignore DLLs in the FMOD subfolder.
+!/[Aa]ssets/Plugins/FMOD/**/lib/*
 
-# FMOD - Ignore the Cache folder since it is updated locally.
-/Libraries/FMOD/Cache/*
+# Don't ignore images and gizmos used by FMOD in the Unity Editor.
+!/[Aa]ssets/Gizmos/FMOD/*
+!/[Aa]ssets/Editor Default Resources/FMOD/*
+
+# Ignore the Cache folder since it is updated locally.
+/[Aa]ssets/Plugins/FMOD/Cache/*
 
 # FMOD - Ignore bank files in the StreamingAssets folder.
 /[Aa]ssets/StreamingAssets/**/*.bank
