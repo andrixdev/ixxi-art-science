@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8490810162910381930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Music/FMOD/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638406848083593525
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-8084666116921182865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19,7 +37,7 @@ MonoBehaviour:
     Data3: -2047208531
     Data4: 550464992
   Banks:
-  - {fileID: 6137669970384034597}
+  - {fileID: -8490810162910381930}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -28,7 +46,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 69864
---- !u!114 &-2875791628526346254
+--- !u!114 &-4240578730090634322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +61,7 @@ MonoBehaviour:
   Path: Assets/Music/FMOD/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638356519000000000
+  lastModified: 638406848083593525
   FileSizes:
   - Name: 
     Value: 806
@@ -61,16 +79,16 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -2875791628526346254}
-  - {fileID: 6137669970384034597}
+  - {fileID: -4240578730090634322}
+  - {fileID: -8490810162910381930}
   EditorEvents:
   - {fileID: -8084666116921182865}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 6137669970384034597}
+  - {fileID: -8490810162910381930}
   StringsBanks:
-  - {fileID: -2875791628526346254}
-  cacheTime: 638356519000000000
+  - {fileID: -4240578730090634322}
+  cacheTime: 638406848083593525
   cacheVersion: 131609
 --- !u!114 &5943185190617513881
 MonoBehaviour:
@@ -95,22 +113,4 @@ MonoBehaviour:
   Type: 0
   IsGlobal: 0
   Labels: []
-  Exists: 1
---- !u!114 &6137669970384034597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/Music/FMOD/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638356519000000000
-  FileSizes: []
   Exists: 1
