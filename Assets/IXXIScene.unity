@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.010471643, g: 0.010975362, b: 0.015933873, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1064,8 +1064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings:
-  - {fileID: 87887893}
+  m_Bindings: []
   m_VisualEffect: {fileID: 87887896}
 --- !u!114 &87887893
 MonoBehaviour:
@@ -3242,7 +3241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &436842104
 Transform:
   m_ObjectHideFlags: 0
@@ -6463,6 +6462,7 @@ Transform:
   - {fileID: 1924498753}
   - {fileID: 506710587}
   - {fileID: 436842104}
+  - {fileID: 1976291971}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &836568028
@@ -6846,7 +6846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &955742076
 Transform:
   m_ObjectHideFlags: 0
@@ -10064,9 +10064,8 @@ GameObject:
   - component: {fileID: 1876560901}
   - component: {fileID: 1876560906}
   - component: {fileID: 1876560905}
-  - component: {fileID: 1876560904}
-  - component: {fileID: 1876560903}
-  - component: {fileID: 1876560902}
+  - component: {fileID: 1876560908}
+  - component: {fileID: 1876560907}
   m_Layer: 0
   m_Name: EquOne
   m_TagString: Untagged
@@ -10083,64 +10082,12 @@ Transform:
   m_GameObject: {fileID: 1876560900}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.917, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 795651210}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1876560902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876560900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdafc37f32b176349b1684c4455b98e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ExecuteInEditor: 1
-  m_Bindings:
-  - {fileID: 1876560903}
-  m_VisualEffect: {fileID: 1876560906}
---- !u!114 &1876560903
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876560900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fdfea1f838247c40921a07afedde962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Property:
-    m_Name: var1
-  Target: {fileID: 0}
---- !u!95 &1876560904
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876560900}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3bed6a3ab2feb744c9731aeeb853c3e3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!73398921 &1876560905
 VFXRenderer:
   serializedVersion: 1
@@ -10199,35 +10146,38 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 1.05
+      - m_Value: 1
         m_Name: E0
         m_Overridden: 1
-      - m_Value: -0.49
+      - m_Value: 0.1
         m_Name: E4
         m_Overridden: 1
-      - m_Value: 0.48
+      - m_Value: 0.02
         m_Name: nu
         m_Overridden: 1
-      - m_Value: 2.45
+      - m_Value: 1.5
         m_Name: lambda
         m_Overridden: 1
-      - m_Value: 8.1
+      - m_Value: 4
         m_Name: k0
         m_Overridden: 1
       - m_Value: 0
         m_Name: eta
         m_Overridden: 1
-      - m_Value: 2.17
+      - m_Value: 1.5
         m_Name: a
         m_Overridden: 1
-      - m_Value: -0.43
+      - m_Value: 1
         m_Name: b
         m_Overridden: 1
-      - m_Value: 1.4
+      - m_Value: 0.1
         m_Name: alpha
         m_Overridden: 1
-      - m_Value: 0.22
+      - m_Value: 1.5
         m_Name: beta
+        m_Overridden: 1
+      - m_Value: 0.3
+        m_Name: highlightRadius
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
@@ -10241,6 +10191,18 @@ VisualEffect:
         m_Overridden: 1
       - m_Value: {x: 1, y: 0.1, z: 1}
         m_Name: var1_scale
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 0, z: 0}
+        m_Name: highlightOrigin
+        m_Overridden: 1
+      - m_Value: {x: -0, y: 0, z: 0}
+        m_Name: highlightOriginTransform_angles
+        m_Overridden: 1
+      - m_Value: {x: 0.5, y: 0.5, z: 0.5}
+        m_Name: highlightOriginTransform_position
+        m_Overridden: 1
+      - m_Value: {x: 1, y: 1, z: 1}
+        m_Name: highlightOriginTransform_scale
         m_Overridden: 1
     m_Vector4f:
       m_Array: []
@@ -10261,6 +10223,37 @@ VisualEffect:
       - m_Value: 0
         m_Name: togglePositiveCorner
         m_Overridden: 1
+--- !u!114 &1876560907
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876560900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fdfea1f838247c40921a07afedde962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Property:
+    m_Name: highlightOriginTransform
+  Target: {fileID: 1976291971}
+--- !u!114 &1876560908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876560900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdafc37f32b176349b1684c4455b98e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExecuteInEditor: 1
+  m_Bindings:
+  - {fileID: 1876560907}
+  m_VisualEffect: {fileID: 1876560906}
 --- !u!1 &1880644214
 GameObject:
   m_ObjectHideFlags: 0
@@ -10532,7 +10525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1924498753
 Transform:
   m_ObjectHideFlags: 0
@@ -10732,6 +10725,37 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0.5
   m_ShadowAngle: 0
+--- !u!1 &1976291970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1976291971}
+  m_Layer: 0
+  m_Name: EquSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1976291971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976291970}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 795651210}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1977677310
 GameObject:
   m_ObjectHideFlags: 0
