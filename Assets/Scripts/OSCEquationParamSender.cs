@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 using extOSC;
+using TMPro;
 
 public class OSCEquationParamSender : MonoBehaviour
 {
@@ -28,11 +29,11 @@ public class OSCEquationParamSender : MonoBehaviour
 	public float E4 = 1.0f;
 	private float lastE4 = 1.0f;
 
-	[Range(0.0f, 3.0f)]
+	[Range(-3.0f, 3.0f)]
 	public float nu = 1.0f;
 	private float lastNu = 1.0f;
 
-	[Range(0.0f, 3.0f)]
+	[Range(-3.0f, 3.0f)]
 	public float lambda = 1.0f;
 	private float lastLambda = 1.0f;
 
@@ -40,7 +41,7 @@ public class OSCEquationParamSender : MonoBehaviour
 	public float eta = 0.0f;
 	private float lastEta = 0.0f;
 
-	[Range(0.0f, 3.0f)]
+	[Range(-3.0f, 3.0f)]
 	public float a = 1.0f;
 	private float lastA = 1.0f;
 
@@ -55,6 +56,25 @@ public class OSCEquationParamSender : MonoBehaviour
 	[Range(0.0f, 3.0f)]
 	public float beta = 1.0f;
 	private float lastBeta = 1.0f;
+
+	[Range(0.0f, 5.0f)]
+	public float turbulence = 0.0f;
+	private float lastTurbulence = 0.0f;
+
+	[Range(0.0f, 5.0f)]
+	public float incrementSpeed = 1.5f;
+	private float lastIncrementSpeed = 1.5f;
+
+	[Range(0.0f, 1.0f)]
+	public float opacity = 1.0f;
+
+	// Variables displayed text
+	public TextMeshProUGUI _E0;
+	public TextMeshProUGUI _E4;
+	public TextMeshProUGUI _nu;
+	public TextMeshProUGUI _lambda;
+	public TextMeshProUGUI _k0;
+	public TextMeshProUGUI _eta;
 
 	protected void Start()
 	{
@@ -81,6 +101,8 @@ public class OSCEquationParamSender : MonoBehaviour
 		else if (b != lastB) { lastB = b; variableName = "b"; variableValue = b; }
 		else if (alpha != lastAlpha) { lastAlpha = alpha; variableName = "alpha"; variableValue = alpha; }
 		else if (beta != lastBeta) { lastBeta = beta; variableName = "beta"; variableValue = beta; }
+		else if (turbulence != lastTurbulence) { lastTurbulence = turbulence; variableName = "turbulence"; variableValue = turbulence; }
+		else if (incrementSpeed != lastIncrementSpeed) { lastIncrementSpeed = incrementSpeed; variableName = "incrementSpeed"; variableValue = incrementSpeed; }
 
 		if (variableName.Length > 0)
 		{
@@ -92,7 +114,25 @@ public class OSCEquationParamSender : MonoBehaviour
 
 			// Change local VFX value
 			equationVFX.SetFloat(variableName, variableValue);
+
+			// Update display TextMeshPro values
+			_E0.text = "E0 = " + E0.ToString();
+			_E4.text = "E4 = " + E4.ToString();
+			_nu.text = "nu = " + nu.ToString();
+			_lambda.text = "lambda = " + lambda.ToString();
+			_k0.text = "k0 = " + k0.ToString();
+			_eta.text = "eta = " + eta.ToString();
+
 		}
+
+		// Update colors (opacity)
+		_E0.color = new Color(1, 1, 1, opacity);
+		_E4.color = new Color(1, 1, 1, opacity);
+		_nu.color = new Color(1, 1, 1, opacity);
+		_lambda.color = new Color(1, 1, 1, opacity);
+		_k0.color = new Color(1, 1, 1, opacity);
+		_eta.color = new Color(1, 1, 1, opacity);
+
 	}
 
 }

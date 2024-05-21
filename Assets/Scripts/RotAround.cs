@@ -12,9 +12,9 @@ public class RotAround : MonoBehaviour
     public float baseRotAngleY = 0;
     public float radius = 5.0f;
 
-    private float angleX = 0;
+    //private float angleX = 0;
     private float angleY = 0;
-    private float angleZ = 0;
+    //private float angleZ = 0;
     private float t = 0;
 
     void Start()
