@@ -32,12 +32,16 @@ public class OSCEquationParamSender : MonoBehaviour
 	public TextMeshProUGUI slot9;
 	public TextMeshProUGUI slot10;
 
-	// Equation image
-	public Image _equation;
-
 	// Axes coordinates canvas
 	public Canvas _coordinatesCanvas;
 	private TextMeshProUGUI[] _coordinates;
+
+	// Equation image
+	public Image equationImg;
+	
+	// Epileptic warning texts
+	public TextMeshProUGUI epilepticSlot1;
+	public TextMeshProUGUI epilepticSlot2;
 
 	// Camera
 	public RotAround cam;
@@ -132,6 +136,10 @@ public class OSCEquationParamSender : MonoBehaviour
 	[Range(0.0f, 1.0f)]
 	public float equationOpacity = 1.0f;
 	private float lastEquationOpacity = 1.0f;
+
+	[Range(0.0f, 1.0f)]
+	public float epilepsyOpacity = 1.0f;
+	private float lastEpilepsyOpacity = 1.0f;
 
 	[Range(-0.5f, 0.5f)]
 	public float camSpeed = 0.07f;
@@ -229,7 +237,7 @@ public class OSCEquationParamSender : MonoBehaviour
 		}
 
 		// Update opacities if one value changed
-		if (lastAxesOpacity != axesOpacity || lastCoordinatesOpacity != coordinatesOpacity || lastEquationOpacity != equationOpacity)
+		if (lastAxesOpacity != axesOpacity || lastCoordinatesOpacity != coordinatesOpacity || lastEquationOpacity != equationOpacity || lastEpilepsyOpacity != epilepsyOpacity)
 		{
 			UpdateOpacities();
 		}
@@ -265,12 +273,17 @@ public class OSCEquationParamSender : MonoBehaviour
 		}
 
 		// Update equation image opacity
-		_equation.color = new Color(1, 1, 1, equationOpacity);
+		equationImg.color = new Color(1, 1, 1, equationOpacity);
+		
+		// Update epilepsy warning opacity
+		epilepticSlot1.color = new Color(1, 1, 1, epilepsyOpacity);
+		epilepticSlot2.color = new Color(1, 1, 1, epilepsyOpacity);
 
 		// Update value buffers
 		lastAxesOpacity = axesOpacity;
 		lastCoordinatesOpacity = coordinatesOpacity;
 		lastEquationOpacity = equationOpacity;
+		lastEpilepsyOpacity = epilepsyOpacity;
 
 	}
 
