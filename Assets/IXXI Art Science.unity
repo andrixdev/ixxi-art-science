@@ -4963,7 +4963,7 @@ MonoBehaviour:
   slot9: {fileID: 191528913}
   slot10: {fileID: 703925258}
   _coordinatesCanvas: {fileID: 1487702051}
-  blackOverlayImg: {fileID: 0}
+  blackOverlayImg: {fileID: 1956825675}
   equationImg: {fileID: 1209921118}
   epilepticSlot1: {fileID: 1416202323}
   epilepticSlot2: {fileID: 351987539}
@@ -4979,7 +4979,7 @@ MonoBehaviour:
   beta: 1
   turbulence: 0
   incrementSpeed: 1.25
-  blackOverlayOpacity: 1
+  blackOverlayOpacity: 0
   axesOpacity: 0
   coordinatesOpacity: 0
   dashboardOpacity: 0
@@ -15933,7 +15933,7 @@ GameObject:
   - component: {fileID: 1956825676}
   - component: {fileID: 1956825675}
   m_Layer: 5
-  m_Name: Black overlay
+  m_Name: Black overlay - Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
