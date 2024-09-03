@@ -16,7 +16,7 @@ public class RotAround : MonoBehaviour
     //private float angleZ = 0;
 
     public float radius = 5.0f;
-    public float inertia = 1.0f;
+    public float inertia = 2.0f;
     private float hamperedRadius = 5.0f;
 
     private float t = 0;

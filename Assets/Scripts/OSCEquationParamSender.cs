@@ -148,15 +148,15 @@ public class OSCEquationParamSender : MonoBehaviour
 	public float epilepsyOpacity = 1.0f;
 	private float lastEpilepsyOpacity = 1.0f;
 
-	[Range(-0.5f, 0.5f)]
-	public float camSpeed = 0.07f;
-	private float lastCamSpeed = 0.07f;
+	[Range(-1.0f, 1.0f)]
+	public float camSpeed = 0.1f;
+	private float lastCamSpeed = 0.1f;
 
-	[Range(-720.0f, 720.0f)]
+	[Range(-360.0f, 360.0f)]
 	public float camBaseAngle = 0.0f;
 	private float lastCamBaseAngle = 0.0f;
 
-	[Range(-2.0f, 8.0f)]
+	[Range(0.0f, 8.0f)]
 	public float camRadius = 4.0f;
 	private float lastCamRadius = 4.0f;
 
@@ -262,11 +262,11 @@ public class OSCEquationParamSender : MonoBehaviour
 
 	void UpdateOpacities()
 	{
-		// Update black overlay opacity
-		blackOverlayImg.color = new Color(1, 1, 1, blackOverlayOpacity);
+		// Update black overlay opacity (smoothed with ~cubic root power law)
+		blackOverlayImg.color = new Color(1, 1, 1, Mathf.Pow(blackOverlayOpacity, 0.3f));
 
-		// Update VFX axes opacity
-		equationVFX.SetFloat("axesOpacity", axesOpacity);
+		// Update VFX axes opacity (smoothed with square power law)
+		equationVFX.SetFloat("axesOpacity", Mathf.Pow(axesOpacity, 2.0f));
 		if (axesOpacity == 0)
 		{
 			equationVFX.SetBool("toggleAxes", false);
@@ -276,18 +276,18 @@ public class OSCEquationParamSender : MonoBehaviour
 			equationVFX.SetBool("toggleAxes", true);
 		}
 		
-		// Update coordinates opacity
+		// Update coordinates opacity (smoothed with square power law)
 		foreach (TextMeshProUGUI _coord in _coordinates)
 		{
-			_coord.color = new Color(1, 1, 1, coordinatesOpacity);
+			_coord.color = new Color(1, 1, 1, Mathf.Pow(coordinatesOpacity, 2.0f));
 		}
 
-		// Update equation image opacity
-		equationImg.color = new Color(1, 1, 1, equationOpacity);
+		// Update equation image opacity (smoothed with square power law)
+		equationImg.color = new Color(1, 1, 1, Mathf.Pow(equationOpacity, 2.0f));
 		
-		// Update epilepsy warning opacity
-		epilepticSlot1.color = new Color(1, 1, 1, epilepsyOpacity);
-		epilepticSlot2.color = new Color(1, 1, 1, epilepsyOpacity);
+		// Update epilepsy warning opacity (smoothed with square power law)
+		epilepticSlot1.color = new Color(1, 1, 1, Mathf.Pow(epilepsyOpacity, 2.0f));
+		epilepticSlot2.color = new Color(1, 1, 1, Mathf.Pow(epilepsyOpacity, 2.0f));
 
 		// Update value buffers
 		lastBlackOverlayOpacity = blackOverlayOpacity;
@@ -295,13 +295,13 @@ public class OSCEquationParamSender : MonoBehaviour
 		lastCoordinatesOpacity = coordinatesOpacity;
 		lastEquationOpacity = equationOpacity;
 		lastEpilepsyOpacity = epilepsyOpacity;
-
 	}
 
 	void UpdateCamera()
 	{
 		// Update camera variables
-		cam.revolutionSpeed = camSpeed;
+		float smoothedCamSpeed = Mathf.Sign(camSpeed) * Mathf.Pow(Mathf.Abs(camSpeed), 3.0f);
+		cam.revolutionSpeed = smoothedCamSpeed;
 		cam.baseRotAngleY = camBaseAngle;
 		cam.radius = camRadius;
 
@@ -345,45 +345,48 @@ public class OSCEquationParamSender : MonoBehaviour
 
 	void UpdateDashboardOpacities()
 	{
+		// Compute smoothed dashboard opacity (square power law for smoother control)
+		float dashOpa = Mathf.Pow(dashboardOpacity, 2.0f);
+
 		// Full color (white) or slowly fading? Raw (unordered) or reordered?
 		if (dashboardFadingToggle && dashboardOrderToggle)
 		{
-			slot1.color = new Color(1, 1, 1, sortedVariables[0].getOpacity() * dashboardOpacity);
-			slot2.color = new Color(1, 1, 1, sortedVariables[1].getOpacity() * dashboardOpacity);
-			slot3.color = new Color(1, 1, 1, sortedVariables[2].getOpacity() * dashboardOpacity);
-			slot4.color = new Color(1, 1, 1, sortedVariables[3].getOpacity() * dashboardOpacity);
-			slot5.color = new Color(1, 1, 1, sortedVariables[4].getOpacity() * dashboardOpacity);
-			slot6.color = new Color(1, 1, 1, sortedVariables[5].getOpacity() * dashboardOpacity);
-			slot7.color = new Color(1, 1, 1, sortedVariables[6].getOpacity() * dashboardOpacity);
-			slot8.color = new Color(1, 1, 1, sortedVariables[7].getOpacity() * dashboardOpacity);
-			slot9.color = new Color(1, 1, 1, sortedVariables[8].getOpacity() * dashboardOpacity);
-			slot10.color = new Color(1, 1, 1, sortedVariables[9].getOpacity() * dashboardOpacity);
+			slot1.color = new Color(1, 1, 1, sortedVariables[0].getOpacity() * dashOpa);
+			slot2.color = new Color(1, 1, 1, sortedVariables[1].getOpacity() * dashOpa);
+			slot3.color = new Color(1, 1, 1, sortedVariables[2].getOpacity() * dashOpa);
+			slot4.color = new Color(1, 1, 1, sortedVariables[3].getOpacity() * dashOpa);
+			slot5.color = new Color(1, 1, 1, sortedVariables[4].getOpacity() * dashOpa);
+			slot6.color = new Color(1, 1, 1, sortedVariables[5].getOpacity() * dashOpa);
+			slot7.color = new Color(1, 1, 1, sortedVariables[6].getOpacity() * dashOpa);
+			slot8.color = new Color(1, 1, 1, sortedVariables[7].getOpacity() * dashOpa);
+			slot9.color = new Color(1, 1, 1, sortedVariables[8].getOpacity() * dashOpa);
+			slot10.color = new Color(1, 1, 1, sortedVariables[9].getOpacity() * dashOpa);
 		}
 		else if (dashboardFadingToggle && !dashboardOrderToggle)
 		{
-			slot1.color = new Color(1, 1, 1, playVariables[0].getOpacity() * dashboardOpacity);
-			slot2.color = new Color(1, 1, 1, playVariables[1].getOpacity() * dashboardOpacity);
-			slot3.color = new Color(1, 1, 1, playVariables[2].getOpacity() * dashboardOpacity);
-			slot4.color = new Color(1, 1, 1, playVariables[3].getOpacity() * dashboardOpacity);
-			slot5.color = new Color(1, 1, 1, playVariables[4].getOpacity() * dashboardOpacity);
-			slot6.color = new Color(1, 1, 1, playVariables[5].getOpacity() * dashboardOpacity);
-			slot7.color = new Color(1, 1, 1, playVariables[6].getOpacity() * dashboardOpacity);
-			slot8.color = new Color(1, 1, 1, playVariables[7].getOpacity() * dashboardOpacity);
-			slot9.color = new Color(1, 1, 1, playVariables[8].getOpacity() * dashboardOpacity);
-			slot10.color = new Color(1, 1, 1, playVariables[9].getOpacity() * dashboardOpacity);
+			slot1.color = new Color(1, 1, 1, playVariables[0].getOpacity() * dashOpa);
+			slot2.color = new Color(1, 1, 1, playVariables[1].getOpacity() * dashOpa);
+			slot3.color = new Color(1, 1, 1, playVariables[2].getOpacity() * dashOpa);
+			slot4.color = new Color(1, 1, 1, playVariables[3].getOpacity() * dashOpa);
+			slot5.color = new Color(1, 1, 1, playVariables[4].getOpacity() * dashOpa);
+			slot6.color = new Color(1, 1, 1, playVariables[5].getOpacity() * dashOpa);
+			slot7.color = new Color(1, 1, 1, playVariables[6].getOpacity() * dashOpa);
+			slot8.color = new Color(1, 1, 1, playVariables[7].getOpacity() * dashOpa);
+			slot9.color = new Color(1, 1, 1, playVariables[8].getOpacity() * dashOpa);
+			slot10.color = new Color(1, 1, 1, playVariables[9].getOpacity() * dashOpa);
 		}
 		else
 		{
-			slot1.color = new Color(1, 1, 1, 1 * dashboardOpacity);
-			slot2.color = new Color(1, 1, 1, 1 * dashboardOpacity);
-			slot3.color = new Color(1, 1, 1, 1 * dashboardOpacity);
-			slot4.color = new Color(1, 1, 1, 1 * dashboardOpacity);
-			slot5.color = new Color(1, 1, 1, 1 * dashboardOpacity);
-			slot6.color = new Color(1, 1, 1, 1 * dashboardOpacity);
-			slot7.color = new Color(1, 1, 1, 1 * dashboardOpacity);
-			slot8.color = new Color(1, 1, 1, 1 * dashboardOpacity);
-			slot9.color = new Color(1, 1, 1, 1 * dashboardOpacity);
-			slot10.color = new Color(1, 1, 1, 1 * dashboardOpacity);
+			slot1.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot2.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot3.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot4.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot5.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot6.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot7.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot8.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot9.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot10.color = new Color(1, 1, 1, 1 * dashOpa);
 		}
 
 	}
