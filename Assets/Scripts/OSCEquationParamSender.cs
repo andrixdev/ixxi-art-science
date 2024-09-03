@@ -36,6 +36,9 @@ public class OSCEquationParamSender : MonoBehaviour
 	public Canvas _coordinatesCanvas;
 	private TextMeshProUGUI[] _coordinates;
 
+	// Black overlay image
+	public Image blackOverlayImg;
+
 	// Equation image
 	public Image equationImg;
 	
@@ -118,6 +121,10 @@ public class OSCEquationParamSender : MonoBehaviour
 
 
 	[Header("Visual controls")]
+	[Range(0.0f, 1.0f)]
+	public float blackOverlayOpacity = 1.0f;
+	private float lastBlackOverlayOpacity = 1.0f;
+
 	[Range(0.0f, 1.0f)]
 	public float axesOpacity = 1.0f;
 	private float lastAxesOpacity = 1.0f;
@@ -237,7 +244,7 @@ public class OSCEquationParamSender : MonoBehaviour
 		}
 
 		// Update opacities if one value changed
-		if (lastAxesOpacity != axesOpacity || lastCoordinatesOpacity != coordinatesOpacity || lastEquationOpacity != equationOpacity || lastEpilepsyOpacity != epilepsyOpacity)
+		if (lastBlackOverlayOpacity != blackOverlayOpacity || lastAxesOpacity != axesOpacity || lastCoordinatesOpacity != coordinatesOpacity || lastEquationOpacity != equationOpacity || lastEpilepsyOpacity != epilepsyOpacity)
 		{
 			UpdateOpacities();
 		}
@@ -255,6 +262,9 @@ public class OSCEquationParamSender : MonoBehaviour
 
 	void UpdateOpacities()
 	{
+		// Update black overlay opacity
+		blackOverlayImg.color = new Color(1, 1, 1, blackOverlayOpacity);
+
 		// Update VFX axes opacity
 		equationVFX.SetFloat("axesOpacity", axesOpacity);
 		if (axesOpacity == 0)
@@ -280,6 +290,7 @@ public class OSCEquationParamSender : MonoBehaviour
 		epilepticSlot2.color = new Color(1, 1, 1, epilepsyOpacity);
 
 		// Update value buffers
+		lastBlackOverlayOpacity = blackOverlayOpacity;
 		lastAxesOpacity = axesOpacity;
 		lastCoordinatesOpacity = coordinatesOpacity;
 		lastEquationOpacity = equationOpacity;
