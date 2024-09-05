@@ -4968,28 +4968,28 @@ MonoBehaviour:
   epilepticSlot1: {fileID: 1416202323}
   epilepticSlot2: {fileID: 351987539}
   cam: {fileID: 1823688472}
-  masterIntensity: 0
-  equationIntensity: 0
-  turbulenceIntensity: 0
-  k0: 0
-  e0: 1
+  masterIntensity: 1
+  equationIntensity: 1
+  turbulenceIntensity: 0.72
+  k0: 3.71
+  e0: 2.93
   lambda: 1
-  nu: 1
+  nu: 0.44
   eta: 0
   a: 1
   b: 1
   alpha: 1
   beta: 1
-  blackOverlayOpacity: 0.469
-  epilepsyOpacity: 0
-  equationOpacity: 0
-  axesOpacity: 0
-  coordinatesOpacity: 0
-  dashboardOpacity: 0
+  blackOverlayOpacity: 0.065
+  epilepsyOpacity: 0.754
+  equationOpacity: 0.659
+  axesOpacity: 0.552
+  coordinatesOpacity: 0.603
+  dashboardOpacity: 0.556
   dashboardOrderToggle: 1
-  dashboardFadingToggle: 0
-  togglePositiveCorner: 1
-  camSpeed: 0.15
+  dashboardFadingToggle: 1
+  togglePositiveCorner: 0
+  camSpeed: 0.362
   camBaseAngle: 0
   camRadius: 5
 --- !u!114 &560340077
@@ -13160,74 +13160,6 @@ Transform:
   - {fileID: 701332800}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1726735529
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1726735532}
-  - component: {fileID: 1726735531}
-  - component: {fileID: 1726735530}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1726735530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1726735529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
---- !u!114 &1726735531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1726735529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!4 &1726735532
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1726735529}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1732162894
 GameObject:
   m_ObjectHideFlags: 0
@@ -16704,4 +16636,3 @@ SceneRoots:
   - {fileID: 110270755}
   - {fileID: 126698463}
   - {fileID: 729956931}
-  - {fileID: 1726735532}
