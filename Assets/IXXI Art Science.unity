@@ -4968,6 +4968,9 @@ MonoBehaviour:
   epilepticSlot1: {fileID: 1416202323}
   epilepticSlot2: {fileID: 351987539}
   cam: {fileID: 1823688472}
+  masterIntensity: 0
+  equationIntensity: 0
+  turbulenceIntensity: 0
   k0: 0
   e0: 1
   lambda: 1
@@ -4977,17 +4980,16 @@ MonoBehaviour:
   b: 1
   alpha: 1
   beta: 1
-  turbulence: 0
-  incrementSpeed: 1.25
-  blackOverlayOpacity: 0
+  blackOverlayOpacity: 0.469
+  epilepsyOpacity: 0
+  equationOpacity: 0
   axesOpacity: 0
   coordinatesOpacity: 0
   dashboardOpacity: 0
   dashboardOrderToggle: 1
   dashboardFadingToggle: 0
-  equationOpacity: 0
-  epilepsyOpacity: 0
-  camSpeed: 0.05
+  togglePositiveCorner: 1
+  camSpeed: 0.15
   camBaseAngle: 0
   camRadius: 5
 --- !u!114 &560340077
@@ -5121,6 +5123,15 @@ VisualEffect:
       - m_Value: 1
         m_Name: axesOpacity
         m_Overridden: 1
+      - m_Value: 0
+        m_Name: masterIntensity
+        m_Overridden: 1
+      - m_Value: 0
+        m_Name: equationIntensity
+        m_Overridden: 1
+      - m_Value: 0
+        m_Name: turbulenceIntensity
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -5162,7 +5173,7 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array:
-      - m_Value: 0
+      - m_Value: 1
         m_Name: togglePositiveCorner
         m_Overridden: 1
       - m_Value: 0
@@ -6386,6 +6397,9 @@ MonoBehaviour:
   epilepticSlot1: {fileID: 0}
   epilepticSlot2: {fileID: 0}
   cam: {fileID: 0}
+  masterIntensity: 0
+  equationIntensity: 0
+  turbulenceIntensity: 0
   k0: 3.45
   e0: 1
   lambda: 1
@@ -6395,16 +6409,15 @@ MonoBehaviour:
   b: 1
   alpha: 1
   beta: 1
-  turbulence: 0
-  incrementSpeed: 1.5
   blackOverlayOpacity: 1
+  epilepsyOpacity: 1
+  equationOpacity: 1
   axesOpacity: 1
   coordinatesOpacity: 1
   dashboardOpacity: 1
   dashboardOrderToggle: 0
   dashboardFadingToggle: 0
-  equationOpacity: 1
-  epilepsyOpacity: 1
+  togglePositiveCorner: 1
   camSpeed: 0.07
   camBaseAngle: 0
   camRadius: 5
@@ -15609,6 +15622,9 @@ MonoBehaviour:
   epilepticSlot1: {fileID: 0}
   epilepticSlot2: {fileID: 0}
   cam: {fileID: 0}
+  masterIntensity: 0
+  equationIntensity: 0
+  turbulenceIntensity: 0
   k0: 3.45
   e0: 1
   lambda: 1
@@ -15618,16 +15634,15 @@ MonoBehaviour:
   b: 1
   alpha: 1
   beta: 1
-  turbulence: 0
-  incrementSpeed: 1.5
   blackOverlayOpacity: 1
+  epilepsyOpacity: 1
+  equationOpacity: 1
   axesOpacity: 1
   coordinatesOpacity: 1
   dashboardOpacity: 1
   dashboardOrderToggle: 0
   dashboardFadingToggle: 0
-  equationOpacity: 1
-  epilepsyOpacity: 1
+  togglePositiveCorner: 1
   camSpeed: 0.07
   camBaseAngle: 0
   camRadius: 5

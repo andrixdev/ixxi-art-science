@@ -49,81 +49,77 @@ public class OSCEquationParamSender : MonoBehaviour
 	// Camera
 	public RotAround cam;
 
-	// Equation variables
+	// Controls : Master system variables
+	[Header("Master system variables")]
+	
+	[Range(0.0f, 1.0f)]
+	public float masterIntensity = 0.0f;
+	public PlayVariable MasterIntensity;
+	
+	[Range(0.0f, 1.0f)]
+	public float equationIntensity = 0.0f;
+	public PlayVariable EquationIntensity;
+	
+	[Range(0.0f, 1.0f)]
+	public float turbulenceIntensity = 0.0f;
+	public PlayVariable TurbulenceIntensity;
+
+	// Controls : Equation variables
 	[Header("Equation variables")]
+
 	[Range(0.0f, 10.0f)]
 	public float k0 = 1.0f;
 	public PlayVariable K0;
-	//private float lastK0 = 1.0f;
-	//private float k0time = 0.0f;
 
 	[Range(0.0f, 10.0f)]
 	public float e0 = 1.0f;
 	public PlayVariable E0;
-	//private float lastE0 = 1.0f;
-	//private float E0time = 0.0f;
-
+	
 	[Range(-3.0f, 3.0f)]
 	public float lambda = 1.0f;
 	public PlayVariable Lambda;
-	// private float lastLambda = 1.0f;
-	// private float lambdaTime = 0.0f;
-
+	
 	[Range(-3.0f, 3.0f)]
 	public float nu = 1.0f;
-	
 	public PlayVariable Nu;
-	// private float lastNu = 1.0f;
-	// private float nuTime = 0.0f;
 
 	[Range(0.0f, 2.0f)]
 	public float eta = 0.0f;
 	public PlayVariable Eta;
-	// private float lastEta = 0.0f;
-	// private float etaTime = 0.0f;
-
+	
 	[Range(-3.0f, 3.0f)]
 	public float a = 1.0f;
 	public PlayVariable A;
-	// private float lastA = 1.0f;
-	// private float aTime = 0.0f;
-
+	
 	[Range(0.0f, 3.0f)]
 	public float b = 1.0f;
 	public PlayVariable B;
-	// private float lastB = 1.0f;
-	// private float bTime = 0.0f;
-
+	
 	[Range(0.0f, 3.0f)]
 	public float alpha = 1.0f;
 	public PlayVariable Alpha;
-	// private float lastAlpha = 1.0f;
-	// private float alphaTime = 0.0f;
-
+	
 	[Range(0.0f, 3.0f)]
 	public float beta = 1.0f;
 	public PlayVariable Beta;
-	// private float lastBeta = 1.0f;
-	// private float betaTime = 0.0f;
-
-	[Range(0.0f, 5.0f)]
-	public float turbulence = 0.0f;
-	public PlayVariable Turbulence;
-	// private float lastTurbulence = 0.0f;
-	// private float turbulenceTime = 0.0f;
-
-	[Range(0.0f, 5.0f)]
-	public float incrementSpeed = 1.5f;
-	// private float lastIncrementSpeed = 1.5f;
-
+	
 	private PlayVariable[] playVariables;
 	private PlayVariable[] sortedVariables;
 
-
+	// Controls : Visual controls
 	[Header("Visual controls")]
+
 	[Range(0.0f, 1.0f)]
 	public float blackOverlayOpacity = 1.0f;
 	private float lastBlackOverlayOpacity = 1.0f;
+
+	[Range(0.0f, 1.0f)]
+	public float epilepsyOpacity = 1.0f;
+	private float lastEpilepsyOpacity = 1.0f;
+
+	[Range(0.0f, 1.0f)]
+	public float equationOpacity = 1.0f;
+	private float lastEquationOpacity = 1.0f;
 
 	[Range(0.0f, 1.0f)]
 	public float axesOpacity = 1.0f;
@@ -140,19 +136,14 @@ public class OSCEquationParamSender : MonoBehaviour
 	private bool lastDashboardOrderToggle = false;
 	private bool lastDashboardFadingToggle = false;
 
-	[Range(0.0f, 1.0f)]
-	public float equationOpacity = 1.0f;
-	private float lastEquationOpacity = 1.0f;
-
-	[Range(0.0f, 1.0f)]
-	public float epilepsyOpacity = 1.0f;
-	private float lastEpilepsyOpacity = 1.0f;
+	public bool togglePositiveCorner = true;
+	private bool lastTogglePositionCorner = true;
 
 	[Range(-1.0f, 1.0f)]
-	public float camSpeed = 0.1f;
+	public float camSpeed = 0.15f;
 	private float lastCamSpeed = 0.1f;
 
-	[Range(-360.0f, 360.0f)]
+	[Range(-400.0f, 400.0f)]
 	public float camBaseAngle = 0.0f;
 	private float lastCamBaseAngle = 0.0f;
 
@@ -176,9 +167,12 @@ public class OSCEquationParamSender : MonoBehaviour
 		B = new PlayVariable("b", b);
 		Alpha = new PlayVariable("alpha", alpha);
 		Beta = new PlayVariable("beta", beta);
-		Turbulence = new PlayVariable("turbulence", turbulence);
 
-		playVariables = new PlayVariable[10];
+		MasterIntensity = new PlayVariable("masterIntensity", masterIntensity);
+		EquationIntensity = new PlayVariable("equationIntensity", equationIntensity);
+		TurbulenceIntensity = new PlayVariable("turbulenceIntensity", turbulenceIntensity);
+
+		playVariables = new PlayVariable[12];
 		playVariables[0] = K0;
 		playVariables[1] = E0;
 		playVariables[2] = Lambda;
@@ -188,10 +182,12 @@ public class OSCEquationParamSender : MonoBehaviour
 		playVariables[6] = B;
 		playVariables[7] = Alpha;
 		playVariables[8] = Beta;
-		playVariables[9] = Turbulence;
+		playVariables[9] = MasterIntensity;
+		playVariables[10] = EquationIntensity;
+		playVariables[11] = TurbulenceIntensity;
 
 		// Prepare array that will order displayed value based on last update time
-		sortedVariables = new PlayVariable[10];
+		sortedVariables = new PlayVariable[12];
 		playVariables.CopyTo(sortedVariables, 0);
 	}
 
@@ -202,19 +198,24 @@ public class OSCEquationParamSender : MonoBehaviour
 
 	void Check()
 	{
+		// Check which variable, if any, has just been changed
 		string variableName = "";
 		float variableValue = 1.0f;
 
-		if (k0 != playVariables[0].value) 		   		    { playVariables[0].update(k0); variableName = "k0"; variableValue = k0; }
-		else if (e0 != playVariables[1].value)				{ playVariables[1].update(e0); variableName = "E0"; variableValue = e0; }
-		else if (lambda != playVariables[2].value) 			{ playVariables[2].update(lambda); variableName = "lambda"; variableValue = lambda; }
-		else if (nu != playVariables[3].value) 		 		{ playVariables[3].update(nu); variableName = "nu"; variableValue = nu; }
-		else if (eta != playVariables[4].value) 		 	{ playVariables[4].update(eta); variableName = "eta"; variableValue = eta; }
-		else if (a != playVariables[5].value) 			 	{ playVariables[5].update(a); variableName = "a"; variableValue = a; }
-		else if (b != playVariables[6].value) 				{ playVariables[6].update(b); variableName = "b"; variableValue = b; }
-		else if (alpha != playVariables[7].value) 	 		{ playVariables[7].update(alpha); variableName = "alpha"; variableValue = alpha; }
-		else if (beta != playVariables[8].value) 	 		{ playVariables[8].update(beta); variableName = "beta"; variableValue = beta; }
-		else if (turbulence != playVariables[9].value) 		{ playVariables[9].update(turbulence); variableName = "turbulence"; variableValue = turbulence; }
+		if (k0 != playVariables[0].value) 		   					    { playVariables[0].update(k0); variableName = "k0"; variableValue = k0; }
+		else if (e0 != playVariables[1].value)							{ playVariables[1].update(e0); variableName = "E0"; variableValue = e0; }
+		else if (lambda != playVariables[2].value) 						{ playVariables[2].update(lambda); variableName = "lambda"; variableValue = lambda; }
+		else if (nu != playVariables[3].value) 		 					{ playVariables[3].update(nu); variableName = "nu"; variableValue = nu; }
+		else if (eta != playVariables[4].value) 				 		{ playVariables[4].update(eta); variableName = "eta"; variableValue = eta; }
+		else if (a != playVariables[5].value) 					 		{ playVariables[5].update(a); variableName = "a"; variableValue = a; }
+		else if (b != playVariables[6].value) 							{ playVariables[6].update(b); variableName = "b"; variableValue = b; }
+		else if (alpha != playVariables[7].value) 	 					{ playVariables[7].update(alpha); variableName = "alpha"; variableValue = alpha; }
+		else if (beta != playVariables[8].value) 	 					{ playVariables[8].update(beta); variableName = "beta"; variableValue = beta; }
+
+		// Smooth with a square law for master inputs (store raw in PlayVariable object, send smoothed value to VFX)
+		else if (masterIntensity != playVariables[9].value) 			{ playVariables[9].update(masterIntensity); variableName = "masterIntensity"; variableValue = Mathf.Pow(masterIntensity, 2.0f); }
+		else if (equationIntensity != playVariables[10].value) 			{ playVariables[10].update(equationIntensity); variableName = "equationIntensity"; variableValue = Mathf.Pow(equationIntensity, 2.0f); }
+		else if (turbulenceIntensity != playVariables[11].value) 		{ playVariables[11].update(turbulenceIntensity); variableName = "turbulenceIntensity"; variableValue = Mathf.Pow(turbulenceIntensity, 2.0f); }
 
 		// Handle variable update if one value changed
 		if (variableName.Length > 0)
@@ -232,6 +233,13 @@ public class OSCEquationParamSender : MonoBehaviour
 			Array.Sort<PlayVariable>(sortedVariables);
 
 			UpdateDashboardText();
+		}
+
+		// Update positive corner toggle if changed
+		if (lastTogglePositionCorner != togglePositiveCorner)
+		{
+			equationVFX.SetBool("togglePositiveCorner", togglePositiveCorner);
+			lastTogglePositionCorner = togglePositiveCorner;
 		}
 
 		// Handle update if one dashboard mode toggles changed
@@ -267,14 +275,6 @@ public class OSCEquationParamSender : MonoBehaviour
 
 		// Update VFX axes opacity (smoothed with square power law)
 		equationVFX.SetFloat("axesOpacity", Mathf.Pow(axesOpacity, 2.0f));
-		if (axesOpacity == 0)
-		{
-			equationVFX.SetBool("toggleAxes", false);
-		}
-		else
-		{
-			equationVFX.SetBool("toggleAxes", true);
-		}
 		
 		// Update coordinates opacity (smoothed with square power law)
 		foreach (TextMeshProUGUI _coord in _coordinates)
