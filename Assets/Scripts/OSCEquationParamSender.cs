@@ -131,10 +131,8 @@ public class OSCEquationParamSender : MonoBehaviour
 
 	[Range(0.0f, 1.0f)]
 	public float dashboardOpacity = 1.0f;
-	public bool dashboardOrderToggle = false;
-	public bool dashboardFadingToggle = false;
-	private bool lastDashboardOrderToggle = false;
-	private bool lastDashboardFadingToggle = false;
+	public bool dashboardMode = false;
+	private bool lastDashboardMode = false;
 
 	public bool togglePositiveCorner = true;
 	private bool lastTogglePositionCorner = true;
@@ -243,10 +241,9 @@ public class OSCEquationParamSender : MonoBehaviour
 		}
 
 		// Handle update if one dashboard mode toggles changed
-		if (lastDashboardFadingToggle != dashboardFadingToggle || lastDashboardOrderToggle != dashboardOrderToggle)
+		if (lastDashboardMode != dashboardMode)
 		{
-			lastDashboardFadingToggle = dashboardFadingToggle;
-			lastDashboardOrderToggle = dashboardOrderToggle;
+			lastDashboardMode = dashboardMode;
 
 			UpdateDashboardText();
 		}
@@ -313,8 +310,8 @@ public class OSCEquationParamSender : MonoBehaviour
 
 	void UpdateDashboardText()
 	{
-		// Update text content
-		if (dashboardOrderToggle)
+		// Update text content (dashboardMode : true => fading with time and reordered (last changed variable on top), false => always displayed and in the same order)
+		if (dashboardMode)
 		{
 			slot1.text = sortedVariables[0].getText();
 			slot2.text = sortedVariables[1].getText();
@@ -348,8 +345,8 @@ public class OSCEquationParamSender : MonoBehaviour
 		// Compute smoothed dashboard opacity (square power law for smoother control)
 		float dashOpa = Mathf.Pow(dashboardOpacity, 2.0f);
 
-		// Full color (white) or slowly fading? Raw (unordered) or reordered?
-		if (dashboardFadingToggle && dashboardOrderToggle)
+		// dashboardMode : true => fading with time and reordered (last changed variable on top), false => always displayed and in the same order
+		if (dashboardMode)
 		{
 			slot1.color = new Color(1, 1, 1, sortedVariables[0].getOpacity() * dashOpa);
 			slot2.color = new Color(1, 1, 1, sortedVariables[1].getOpacity() * dashOpa);
@@ -361,19 +358,6 @@ public class OSCEquationParamSender : MonoBehaviour
 			slot8.color = new Color(1, 1, 1, sortedVariables[7].getOpacity() * dashOpa);
 			slot9.color = new Color(1, 1, 1, sortedVariables[8].getOpacity() * dashOpa);
 			slot10.color = new Color(1, 1, 1, sortedVariables[9].getOpacity() * dashOpa);
-		}
-		else if (dashboardFadingToggle && !dashboardOrderToggle)
-		{
-			slot1.color = new Color(1, 1, 1, playVariables[0].getOpacity() * dashOpa);
-			slot2.color = new Color(1, 1, 1, playVariables[1].getOpacity() * dashOpa);
-			slot3.color = new Color(1, 1, 1, playVariables[2].getOpacity() * dashOpa);
-			slot4.color = new Color(1, 1, 1, playVariables[3].getOpacity() * dashOpa);
-			slot5.color = new Color(1, 1, 1, playVariables[4].getOpacity() * dashOpa);
-			slot6.color = new Color(1, 1, 1, playVariables[5].getOpacity() * dashOpa);
-			slot7.color = new Color(1, 1, 1, playVariables[6].getOpacity() * dashOpa);
-			slot8.color = new Color(1, 1, 1, playVariables[7].getOpacity() * dashOpa);
-			slot9.color = new Color(1, 1, 1, playVariables[8].getOpacity() * dashOpa);
-			slot10.color = new Color(1, 1, 1, playVariables[9].getOpacity() * dashOpa);
 		}
 		else
 		{
