@@ -20,7 +20,7 @@ public class OSCEquationParamSender : MonoBehaviour
 	[Header("Local bindings")]
 	public VisualEffect equationVFX;
 
-	// Dashboard variables
+	// Dashboard variables (the first 9 variables are displayed)
 	public TextMeshProUGUI slot1;
 	public TextMeshProUGUI slot2;
 	public TextMeshProUGUI slot3;
@@ -30,7 +30,6 @@ public class OSCEquationParamSender : MonoBehaviour
 	public TextMeshProUGUI slot7;
 	public TextMeshProUGUI slot8;
 	public TextMeshProUGUI slot9;
-	public TextMeshProUGUI slot10;
 
 	// Axes coordinates canvas
 	public Canvas _coordinatesCanvas;
@@ -322,7 +321,6 @@ public class OSCEquationParamSender : MonoBehaviour
 			slot7.text = sortedVariables[6].getText();
 			slot8.text = sortedVariables[7].getText();
 			slot9.text = sortedVariables[8].getText();
-			slot10.text = sortedVariables[9].getText();
 		}
 		else
 		{
@@ -335,7 +333,6 @@ public class OSCEquationParamSender : MonoBehaviour
 			slot7.text = playVariables[6].getText();
 			slot8.text = playVariables[7].getText();
 			slot9.text = playVariables[8].getText();
-			slot10.text = playVariables[9].getText();
 		}
 
 	}
@@ -357,7 +354,6 @@ public class OSCEquationParamSender : MonoBehaviour
 			slot7.color = new Color(1, 1, 1, sortedVariables[6].getOpacity() * dashOpa);
 			slot8.color = new Color(1, 1, 1, sortedVariables[7].getOpacity() * dashOpa);
 			slot9.color = new Color(1, 1, 1, sortedVariables[8].getOpacity() * dashOpa);
-			slot10.color = new Color(1, 1, 1, sortedVariables[9].getOpacity() * dashOpa);
 		}
 		else
 		{
@@ -370,7 +366,6 @@ public class OSCEquationParamSender : MonoBehaviour
 			slot7.color = new Color(1, 1, 1, 1 * dashOpa);
 			slot8.color = new Color(1, 1, 1, 1 * dashOpa);
 			slot9.color = new Color(1, 1, 1, 1 * dashOpa);
-			slot10.color = new Color(1, 1, 1, 1 * dashOpa);
 		}
 
 	}
