@@ -11,11 +11,14 @@ using UnityEngine.VFX;
 using extOSC;
 using TMPro;
 
-public class OSCEquationParamSender : MonoBehaviour
+public class EquationOSCAndVFXController : MonoBehaviour
 {
 
-	[Header("OSC Settings")]
-	public OSCTransmitter transmitter;
+	//[Header("OSC Settings")]
+	//public OSCTransmitter transmitter;
+
+	[Header("OSC Receiver")]
+	public OSCReceiver receiver;
 
 	[Header("Local bindings")]
 	public VisualEffect equationVFX;
@@ -186,11 +189,86 @@ public class OSCEquationParamSender : MonoBehaviour
 		// Prepare array that will order displayed value based on last update time
 		sortedVariables = new PlayVariable[12];
 		playVariables.CopyTo(sortedVariables, 0);
+
+		// Prepare OSC message reception
+		receiver.Bind("/k0", HandleMessage);
+		receiver.Bind("/e0", HandleMessage);
+		receiver.Bind("/lambda", HandleMessage);
+		receiver.Bind("/nu", HandleMessage);
+		receiver.Bind("/eta", HandleMessage);
+		receiver.Bind("/a", HandleMessage);
+		receiver.Bind("/b", HandleMessage);
+		receiver.Bind("/alpha", HandleMessage);
+		receiver.Bind("/beta", HandleMessage);
+
+		receiver.Bind("/overlay-opacity", HandleMessage);
+		receiver.Bind("/epilepsy-opacity", HandleMessage);
+		receiver.Bind("/equation-opacity", HandleMessage);
+		receiver.Bind("/axes-opacity", HandleMessage);
+		receiver.Bind("/coordinates-opacity", HandleMessage);
+		receiver.Bind("/dashboard-opacity", HandleMessage);
+		receiver.Bind("/cam-speed", HandleMessage);
+		receiver.Bind("/cam-base-angle", HandleMessage);
+		receiver.Bind("/cam-radius", HandleMessage);
+
+		receiver.Bind("/dashboard-mode", HandleBoolMessage);
+		receiver.Bind("/toggle-corner", HandleBoolMessage);
+
+		receiver.Bind("/master", HandleMessage);
+		receiver.Bind("/equation", HandleMessage);
+		receiver.Bind("/turbulence", HandleMessage);
 	}
 
 	void Update()
 	{
 		Check();
+	}
+
+	// Values mapping (arriving [0, 1])
+	private void HandleMessage(OSCMessage message)
+	{
+		string address = message.Address;
+		float value = message.Values[0].FloatValue;
+
+		if (address == "/k0") {	k0 = 10 * value; } // [0, 10]
+		else if (address == "/e0") { e0 = 10 * value; } // [0, 10]
+		else if (address == "/lambda") { lambda = -3 + 6 * value; } // [-3, 3]
+		else if (address == "/nu") { nu = -3 + 6 * value; } // [-3, 3]
+		else if (address == "/eta") { eta = 2 * value; } // [0, 2]
+		else if (address == "/a") { a = -3 + 6 * value; } // [-3, 3]
+		else if (address == "/b") { b = 3 * value; } // [0, 3]
+		else if (address == "/alpha") { alpha = 3 * value; } // [0, 3]
+		else if (address == "/beta") { beta = 3 * value; } // [0, 3]
+		else if (address == "/overlay-opacity") { blackOverlayOpacity = value; }
+		else if (address == "/epilepsy-opacity") { epilepsyOpacity = value; }
+		else if (address == "/equation-opacity") { equationOpacity = value; }
+		else if (address == "/axes-opacity") { axesOpacity = value; }
+		else if (address == "/coordinates-opacity") { coordinatesOpacity = value; }
+		else if (address == "/dashboard-opacity") { dashboardOpacity = value; }
+		else if (address == "/cam-speed") { camSpeed = -1 + 2 * value; } // [-1, 1]
+		else if (address == "/cam-base-angle") { camBaseAngle = -400 + 800 * value; } // [-400, 400]
+		else if (address == "/cam-radius") { camRadius = 8 * value; } // [0, 8]
+		else if (address == "/master") { masterIntensity = value; }
+		else if (address == "/equation") { equationIntensity = value; }
+		else if (address == "/turbulence") { turbulenceIntensity = value; }
+		else
+		{
+			Debug.LogWarning("OSC address not recognized (Float section): " + address);
+		}
+
+	}
+
+	private void HandleBoolMessage(OSCMessage message)
+	{
+		string address = message.Address;
+		bool value = message.Values[0].BoolValue;
+
+		if (address == "/dashboard-mode") {	dashboardMode = value;	}
+		else if (address == "/toggle-corner") { togglePositiveCorner = value; }
+		else
+		{
+			Debug.LogWarning("OSC address not recognized (Bool section): " + address);
+		}
 	}
 
 	void Check()
@@ -218,10 +296,12 @@ public class OSCEquationParamSender : MonoBehaviour
 		if (variableName.Length > 0)
 		{
 			// Send OSC message
+			/*
 			string address = "/project/param/1/value";// + variableName;
 			OSCMessage message = new OSCMessage(address);
 			message.AddValue(OSCValue.Float(variableValue));
 			transmitter.Send(message);
+			*/
 
 			// Change local VFX value
 			equationVFX.SetFloat(variableName, variableValue);

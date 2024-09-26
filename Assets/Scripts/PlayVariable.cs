@@ -29,8 +29,7 @@ public class PlayVariable : IComparable<PlayVariable>
 
     public string getText()
     {
-        return this.name + " = " + this.value;
-        // return this.name + " = " + this.value.ToString();
+        return this.name + " = " + Mathf.Round(100 * this.value) / 100;
     }
 
     public float getOpacity()

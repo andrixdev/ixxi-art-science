@@ -520,7 +520,6 @@ GameObject:
   m_Component:
   - component: {fileID: 27988029}
   - component: {fileID: 27988028}
-  - component: {fileID: 27988030}
   m_Layer: 0
   m_Name: OSC
   m_TagString: Untagged
@@ -546,7 +545,7 @@ MonoBehaviour:
   _workInEditor: 1
   _localHostMode: 0
   _localHost: 192.168.34.27
-  _localPort: 57121
+  _localPort: 8008
 --- !u!4 &27988029
 Transform:
   m_ObjectHideFlags: 0
@@ -562,30 +561,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &27988030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27988026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464088183d2a1484ab8fb64e356c9f5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _autoConnect: 1
-  _closeOnPause: 0
-  _mapBundle: {fileID: 0}
-  _workInEditor: 1
-  _localHostMode: 0
-  _localPortMode: 2
-  _localReceiver: {fileID: 0}
-  _localHost: 192.168.214.27
-  _localPort: 7000
-  _remoteHost: 192.168.79.226
-  _remotePort: 5510
-  _useBundle: 0
 --- !u!1 &36994097
 GameObject:
   m_ObjectHideFlags: 0
@@ -4663,8 +4638,6 @@ GameObject:
   - component: {fileID: 560340075}
   - component: {fileID: 560340080}
   - component: {fileID: 560340079}
-  - component: {fileID: 560340078}
-  - component: {fileID: 560340077}
   - component: {fileID: 560340076}
   m_Layer: 0
   m_Name: EquOnePlay
@@ -4697,10 +4670,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 560340074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6e4ca90eb5b37e41a3cec2aa9c84471, type: 3}
+  m_Script: {fileID: 11500000, guid: e7232a4ed85644c4eba2b906ad3cd43c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transmitter: {fileID: 27988030}
+  receiver: {fileID: 27988028}
   equationVFX: {fileID: 560340080}
   slot1: {fileID: 858756968}
   slot2: {fileID: 2106083681}
@@ -4719,58 +4692,27 @@ MonoBehaviour:
   cam: {fileID: 1823688472}
   masterIntensity: 1
   equationIntensity: 1
-  turbulenceIntensity: 0.72
-  k0: 3.71
-  e0: 2.93
-  lambda: 1
-  nu: 0.44
+  turbulenceIntensity: 0.15
+  k0: 4.5
+  e0: 2.1
+  lambda: 1.5
+  nu: 0.1
   eta: 0
   a: 1
-  b: 1
-  alpha: 1
-  beta: 1
-  blackOverlayOpacity: 0.065
-  epilepsyOpacity: 0.754
-  equationOpacity: 0.659
-  axesOpacity: 0.552
-  coordinatesOpacity: 0.603
-  dashboardOpacity: 0.556
+  b: 0.5
+  alpha: 0.25
+  beta: 1.25
+  blackOverlayOpacity: 0
+  epilepsyOpacity: 0
+  equationOpacity: 0
+  axesOpacity: 0
+  coordinatesOpacity: 0
+  dashboardOpacity: 1
   dashboardMode: 0
   togglePositiveCorner: 1
   camSpeed: 0.362
   camBaseAngle: 0
   camRadius: 5
---- !u!114 &560340077
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 560340074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fdfea1f838247c40921a07afedde962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Property:
-    m_Name: highlightOriginTransform
-  Target: {fileID: 0}
---- !u!114 &560340078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 560340074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdafc37f32b176349b1684c4455b98e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ExecuteInEditor: 1
-  m_Bindings:
-  - {fileID: 560340077}
-  m_VisualEffect: {fileID: 560340080}
 --- !u!73398921 &560340079
 VFXRenderer:
   serializedVersion: 1
@@ -4835,13 +4777,13 @@ VisualEffect:
       - m_Value: 0.001
         m_Name: E4
         m_Overridden: 1
-      - m_Value: 0.05
+      - m_Value: 0.1
         m_Name: nu
         m_Overridden: 1
       - m_Value: 1.5
         m_Name: lambda
         m_Overridden: 1
-      - m_Value: 0.92
+      - m_Value: 0
         m_Name: k0
         m_Overridden: 1
       - m_Value: 0
@@ -4868,7 +4810,7 @@ VisualEffect:
       - m_Value: -10
         m_Name: incrementSpeed
         m_Overridden: 1
-      - m_Value: 1
+      - m_Value: 0
         m_Name: axesOpacity
         m_Overridden: 1
       - m_Value: 0
@@ -6002,7 +5944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e4ca90eb5b37e41a3cec2aa9c84471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transmitter: {fileID: 27988030}
   equationVFX: {fileID: 646222963}
   slot1: {fileID: 0}
   slot2: {fileID: 0}
@@ -6014,6 +5955,7 @@ MonoBehaviour:
   slot8: {fileID: 0}
   slot9: {fileID: 0}
   _coordinatesCanvas: {fileID: 0}
+  _coordinates: []
   blackOverlayImg: {fileID: 0}
   equationImg: {fileID: 0}
   epilepticSlot1: {fileID: 0}
@@ -6032,16 +5974,26 @@ MonoBehaviour:
   alpha: 1
   beta: 1
   blackOverlayOpacity: 1
+  lastBlackOverlayOpacity: 1
   epilepsyOpacity: 1
+  lastEpilepsyOpacity: 1
   equationOpacity: 1
+  lastEquationOpacity: 1
   axesOpacity: 1
+  lastAxesOpacity: 1
   coordinatesOpacity: 1
+  lastCoordinatesOpacity: 1
   dashboardOpacity: 1
   dashboardMode: 0
+  lastDashboardMode: 0
   togglePositiveCorner: 1
+  lastTogglePositionCorner: 1
   camSpeed: 0.07
+  lastCamSpeed: 0.1
   camBaseAngle: 0
+  lastCamBaseAngle: 0
   camRadius: 5
+  lastCamRadius: 4
 --- !u!1 &653937178
 GameObject:
   m_ObjectHideFlags: 0
@@ -14275,7 +14227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e4ca90eb5b37e41a3cec2aa9c84471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transmitter: {fileID: 27988030}
   equationVFX: {fileID: 1934047336}
   slot1: {fileID: 0}
   slot2: {fileID: 0}
@@ -14287,6 +14238,7 @@ MonoBehaviour:
   slot8: {fileID: 0}
   slot9: {fileID: 0}
   _coordinatesCanvas: {fileID: 0}
+  _coordinates: []
   blackOverlayImg: {fileID: 0}
   equationImg: {fileID: 0}
   epilepticSlot1: {fileID: 0}
@@ -14305,16 +14257,26 @@ MonoBehaviour:
   alpha: 1
   beta: 1
   blackOverlayOpacity: 1
+  lastBlackOverlayOpacity: 1
   epilepsyOpacity: 1
+  lastEpilepsyOpacity: 1
   equationOpacity: 1
+  lastEquationOpacity: 1
   axesOpacity: 1
+  lastAxesOpacity: 1
   coordinatesOpacity: 1
+  lastCoordinatesOpacity: 1
   dashboardOpacity: 1
   dashboardMode: 0
+  lastDashboardMode: 0
   togglePositiveCorner: 1
+  lastTogglePositionCorner: 1
   camSpeed: 0.07
+  lastCamSpeed: 0.1
   camBaseAngle: 0
+  lastCamBaseAngle: 0
   camRadius: 5
+  lastCamRadius: 4
 --- !u!114 &1934047333
 MonoBehaviour:
   m_ObjectHideFlags: 2
