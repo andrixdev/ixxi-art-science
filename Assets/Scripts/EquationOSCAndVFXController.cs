@@ -151,7 +151,6 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public float camRadius = 4.0f;
 	private float lastCamRadius = 4.0f;
 
-
 	protected void Start()
 	{
 		// Get all child coordinates from Coordinates Canvas
@@ -273,39 +272,25 @@ public class EquationOSCAndVFXController : MonoBehaviour
 
 	void Check()
 	{
-		// Check which variable, if any, has just been changed
-		string variableName = "";
-		float variableValue = 1.0f;
+		bool hasChanged = false;
 
-		if (k0 != playVariables[0].value) 		   					    { playVariables[0].update(k0); variableName = "k0"; variableValue = k0; }
-		else if (e0 != playVariables[1].value)							{ playVariables[1].update(e0); variableName = "E0"; variableValue = e0; }
-		else if (lambda != playVariables[2].value) 						{ playVariables[2].update(lambda); variableName = "lambda"; variableValue = lambda; }
-		else if (nu != playVariables[3].value) 		 					{ playVariables[3].update(nu); variableName = "nu"; variableValue = nu; }
-		else if (eta != playVariables[4].value) 				 		{ playVariables[4].update(eta); variableName = "eta"; variableValue = eta; }
-		else if (a != playVariables[5].value) 					 		{ playVariables[5].update(a); variableName = "a"; variableValue = a; }
-		else if (b != playVariables[6].value) 							{ playVariables[6].update(b); variableName = "b"; variableValue = b; }
-		else if (alpha != playVariables[7].value) 	 					{ playVariables[7].update(alpha); variableName = "alpha"; variableValue = alpha; }
-		else if (beta != playVariables[8].value) 	 					{ playVariables[8].update(beta); variableName = "beta"; variableValue = beta; }
+		if (k0 != playVariables[0].value) 		   				    { playVariables[0].update(k0); equationVFX.SetFloat("k0", playVariables[0].value); hasChanged = true; }
+		if (e0 != playVariables[1].value)						{ playVariables[1].update(e0); equationVFX.SetFloat("E0", playVariables[1].value); hasChanged = true; }
+		if (lambda != playVariables[2].value) 					{ playVariables[2].update(lambda); equationVFX.SetFloat("lambda", playVariables[2].value); hasChanged = true; }
+		if (nu != playVariables[3].value) 		 				{ playVariables[3].update(nu); equationVFX.SetFloat("nu", playVariables[3].value); hasChanged = true; }
+		if (eta != playVariables[4].value) 				 	{ playVariables[4].update(eta); equationVFX.SetFloat("eta", playVariables[4].value); hasChanged = true; }
+		if (a != playVariables[5].value) 					 	{ playVariables[5].update(a); equationVFX.SetFloat("a", playVariables[5].value); hasChanged = true; }
+		if (b != playVariables[6].value) 						{ playVariables[6].update(b); equationVFX.SetFloat("b", playVariables[6].value); hasChanged = true; }
+		if (alpha != playVariables[7].value) 	 				{ playVariables[7].update(alpha); equationVFX.SetFloat("alpha", playVariables[7].value); hasChanged = true; }
+		if (beta != playVariables[8].value) 	 				{ playVariables[8].update(beta); equationVFX.SetFloat("beta", playVariables[8].value); hasChanged = true; }
 
 		// Smooth with a square law for master inputs (store raw in PlayVariable object, send smoothed value to VFX)
-		else if (masterIntensity != playVariables[9].value) 			{ playVariables[9].update(masterIntensity); variableName = "masterIntensity"; variableValue = Mathf.Pow(masterIntensity, 2.0f); }
-		else if (equationIntensity != playVariables[10].value) 			{ playVariables[10].update(equationIntensity); variableName = "equationIntensity"; variableValue = Mathf.Pow(equationIntensity, 2.0f); }
-		else if (turbulenceIntensity != playVariables[11].value) 		{ playVariables[11].update(turbulenceIntensity); variableName = "turbulenceIntensity"; variableValue = Mathf.Pow(turbulenceIntensity, 2.0f); }
+		if (masterIntensity != playVariables[9].value) 		{ playVariables[9].update(masterIntensity); equationVFX.SetFloat("masterIntensity", Mathf.Pow(playVariables[9].value, 2.0f)); hasChanged = true; }
+		if (equationIntensity != playVariables[10].value) 		{ playVariables[10].update(equationIntensity); equationVFX.SetFloat("equationIntensity", Mathf.Pow(playVariables[10].value, 2.0f)); hasChanged = true; }
+		if (turbulenceIntensity != playVariables[11].value) 	{ playVariables[11].update(turbulenceIntensity); equationVFX.SetFloat("turbulenceIntensity", Mathf.Pow(playVariables[11].value, 2.0f)); hasChanged = true; }
 
-		// Handle variable update if one value changed
-		if (variableName.Length > 0)
+		if (hasChanged)
 		{
-			// Send OSC message
-			/*
-			string address = "/project/param/1/value";// + variableName;
-			OSCMessage message = new OSCMessage(address);
-			message.AddValue(OSCValue.Float(variableValue));
-			transmitter.Send(message);
-			*/
-
-			// Change local VFX value
-			equationVFX.SetFloat(variableName, variableValue);
-
 			// Update dashboard values (order by last update time)
 			Array.Sort<PlayVariable>(sortedVariables);
 

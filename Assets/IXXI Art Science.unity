@@ -374,7 +374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -595.8, y: -120}
+  m_AnchoredPosition: {x: -586, y: -188}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &15466078
@@ -1697,6 +1697,7 @@ Transform:
   - {fileID: 1946600623}
   - {fileID: 1956914119}
   - {fileID: 1484276975}
+  - {fileID: 994362411}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &121709695
@@ -2538,7 +2539,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -595.8, y: -300}
+  m_AnchoredPosition: {x: -586, y: -388}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &191528913
@@ -4639,6 +4640,7 @@ GameObject:
   - component: {fileID: 560340080}
   - component: {fileID: 560340079}
   - component: {fileID: 560340076}
+  - component: {fileID: 560340081}
   m_Layer: 0
   m_Name: EquOnePlay
   m_TagString: Untagged
@@ -4692,7 +4694,7 @@ MonoBehaviour:
   cam: {fileID: 1823688472}
   masterIntensity: 1
   equationIntensity: 1
-  turbulenceIntensity: 0.15
+  turbulenceIntensity: 0
   k0: 4.5
   e0: 2.1
   lambda: 1.5
@@ -4702,7 +4704,7 @@ MonoBehaviour:
   b: 0.5
   alpha: 0.25
   beta: 1.25
-  blackOverlayOpacity: 0
+  blackOverlayOpacity: 1
   epilepsyOpacity: 0
   equationOpacity: 0
   axesOpacity: 0
@@ -4872,6 +4874,27 @@ VisualEffect:
       - m_Value: 1
         m_Name: toggleAxes
         m_Overridden: 1
+--- !u!95 &560340081
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560340074}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &567964999
 GameObject:
   m_ObjectHideFlags: 0
@@ -5944,56 +5967,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e4ca90eb5b37e41a3cec2aa9c84471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equationVFX: {fileID: 646222963}
-  slot1: {fileID: 0}
-  slot2: {fileID: 0}
-  slot3: {fileID: 0}
-  slot4: {fileID: 0}
-  slot5: {fileID: 0}
-  slot6: {fileID: 0}
-  slot7: {fileID: 0}
-  slot8: {fileID: 0}
-  slot9: {fileID: 0}
-  _coordinatesCanvas: {fileID: 0}
-  _coordinates: []
-  blackOverlayImg: {fileID: 0}
-  equationImg: {fileID: 0}
-  epilepticSlot1: {fileID: 0}
-  epilepticSlot2: {fileID: 0}
-  cam: {fileID: 0}
-  masterIntensity: 0
-  equationIntensity: 0
-  turbulenceIntensity: 0
-  k0: 3.45
-  e0: 1
-  lambda: 1
-  nu: 1
-  eta: 0
-  a: 1
-  b: 1
-  alpha: 1
-  beta: 1
-  blackOverlayOpacity: 1
-  lastBlackOverlayOpacity: 1
-  epilepsyOpacity: 1
-  lastEpilepsyOpacity: 1
-  equationOpacity: 1
-  lastEquationOpacity: 1
-  axesOpacity: 1
-  lastAxesOpacity: 1
-  coordinatesOpacity: 1
-  lastCoordinatesOpacity: 1
-  dashboardOpacity: 1
-  dashboardMode: 0
-  lastDashboardMode: 0
-  togglePositiveCorner: 1
-  lastTogglePositionCorner: 1
-  camSpeed: 0.07
-  lastCamSpeed: 0.1
-  camBaseAngle: 0
-  lastCamBaseAngle: 0
-  camRadius: 5
-  lastCamRadius: 4
 --- !u!1 &653937178
 GameObject:
   m_ObjectHideFlags: 0
@@ -7065,7 +7038,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -595.8, y: 60}
+  m_AnchoredPosition: {x: -586, y: 12}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &724351154
@@ -8234,7 +8207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -595.8, y: 420}
+  m_AnchoredPosition: {x: -586, y: 412}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &858756968
@@ -8967,6 +8940,59 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &994362410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 994362411}
+  - component: {fileID: 994362412}
+  m_Layer: 0
+  m_Name: Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &994362411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994362410}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 110270755}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &994362412
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994362410}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 92070c8f5a138034bbdcf714b7141be3, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -4340362038150971059, guid: 92070c8f5a138034bbdcf714b7141be3, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2382418982771105662, guid: 92070c8f5a138034bbdcf714b7141be3, type: 2}
+    value: {fileID: 560340081}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &1018950403
 GameObject:
   m_ObjectHideFlags: 0
@@ -9213,7 +9239,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -595.8, y: -210}
+  m_AnchoredPosition: {x: -586, y: -288}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1082001072
@@ -10801,7 +10827,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -595.8, y: 240}
+  m_AnchoredPosition: {x: -586, y: 212}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1350460596
@@ -11336,7 +11362,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -595.8, y: -30}
+  m_AnchoredPosition: {x: -586, y: -88}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1438588048
@@ -14227,56 +14253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e4ca90eb5b37e41a3cec2aa9c84471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equationVFX: {fileID: 1934047336}
-  slot1: {fileID: 0}
-  slot2: {fileID: 0}
-  slot3: {fileID: 0}
-  slot4: {fileID: 0}
-  slot5: {fileID: 0}
-  slot6: {fileID: 0}
-  slot7: {fileID: 0}
-  slot8: {fileID: 0}
-  slot9: {fileID: 0}
-  _coordinatesCanvas: {fileID: 0}
-  _coordinates: []
-  blackOverlayImg: {fileID: 0}
-  equationImg: {fileID: 0}
-  epilepticSlot1: {fileID: 0}
-  epilepticSlot2: {fileID: 0}
-  cam: {fileID: 0}
-  masterIntensity: 0
-  equationIntensity: 0
-  turbulenceIntensity: 0
-  k0: 3.45
-  e0: 1
-  lambda: 1
-  nu: 1
-  eta: 0
-  a: 1
-  b: 1
-  alpha: 1
-  beta: 1
-  blackOverlayOpacity: 1
-  lastBlackOverlayOpacity: 1
-  epilepsyOpacity: 1
-  lastEpilepsyOpacity: 1
-  equationOpacity: 1
-  lastEquationOpacity: 1
-  axesOpacity: 1
-  lastAxesOpacity: 1
-  coordinatesOpacity: 1
-  lastCoordinatesOpacity: 1
-  dashboardOpacity: 1
-  dashboardMode: 0
-  lastDashboardMode: 0
-  togglePositiveCorner: 1
-  lastTogglePositionCorner: 1
-  camSpeed: 0.07
-  lastCamSpeed: 0.1
-  camBaseAngle: 0
-  lastCamBaseAngle: 0
-  camRadius: 5
-  lastCamRadius: 4
 --- !u!114 &1934047333
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -15026,7 +15002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -595.8, y: 150}
+  m_AnchoredPosition: {x: -586, y: 112}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2008419096
@@ -15209,7 +15185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -595.8, y: 330}
+  m_AnchoredPosition: {x: -586, y: 312}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2106083681
@@ -15330,5 +15306,5 @@ SceneRoots:
   - {fileID: 795651210}
   - {fileID: 17712324}
   - {fileID: 902967153}
-  - {fileID: 110270755}
   - {fileID: 729956931}
+  - {fileID: 110270755}
