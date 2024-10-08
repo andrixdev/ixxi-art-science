@@ -233,7 +233,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		if (address == "/k0") {	k0 = 10 * value; } // [0, 10]
 		else if (address == "/e0") { e0 = 10 * value; } // [0, 10]
 		else if (address == "/lambda") { lambda = -3 + 6 * value; } // [-3, 3]
-		else if (address == "/nu") { nu = -3 + 6 * value; } // [-3, 3]
+		else if (address == "/nu") { nu = 2 * value; } // [0, 2]
 		else if (address == "/eta") { eta = 2 * value; } // [0, 2]
 		else if (address == "/a") { a = -3 + 6 * value; } // [-3, 3]
 		else if (address == "/b") { b = 3 * value; } // [0, 3]
@@ -247,7 +247,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		else if (address == "/dashboard-opacity") { dashboardOpacity = value; }
 		else if (address == "/cam-speed") { camSpeed = -1 + 2 * value; } // [-1, 1]
 		else if (address == "/cam-base-angle") { camBaseAngle = -400 + 800 * value; } // [-400, 400]
-		else if (address == "/cam-radius") { camRadius = 8 * value; } // [0, 8]
+		else if (address == "/cam-radius") { camRadius = 9 * value; } // [0, 9]
 		else if (address == "/master") { masterIntensity = value; }
 		else if (address == "/equation") { equationIntensity = value; }
 		else if (address == "/turbulence") { turbulenceIntensity = value; }
@@ -263,7 +263,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		string address = message.Address;
 		bool value = message.Values[0].BoolValue;
 
-		if (address == "/dashboard-mode") {	dashboardMode = value;	}
+		if (address == "/dashboard-mode") {	dashboardMode = value; }
 		else if (address == "/toggle-corner") { togglePositiveCorner = value; }
 		else
 		{
