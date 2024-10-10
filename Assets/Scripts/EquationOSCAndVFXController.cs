@@ -55,11 +55,11 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	[Header("Master system variables")]
 	
 	[Range(0.0f, 1.0f)]
-	public float masterIntensity = 0.0f;
+	public float masterIntensity = 1.0f;
 	public PlayVariable MasterIntensity;
 	
 	[Range(0.0f, 1.0f)]
-	public float equationIntensity = 0.0f;
+	public float equationIntensity = 1.0f;
 	public PlayVariable EquationIntensity;
 	
 	[Range(0.0f, 1.0f)]
@@ -70,18 +70,18 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	[Header("Equation variables")]
 
 	[Range(0.0f, 10.0f)]
-	public float k0 = 1.0f;
+	public float k0 = 0.0f;
 	public PlayVariable K0;
 
 	[Range(0.0f, 10.0f)]
-	public float e0 = 1.0f;
+	public float e0 = 0.0f;
 	public PlayVariable E0;
 	
-	[Range(-3.0f, 3.0f)]
-	public float lambda = 1.0f;
+	[Range(0.0f, 2.0f)]
+	public float lambda = 1.5f;
 	public PlayVariable Lambda;
 	
-	[Range(-3.0f, 3.0f)]
+	[Range(0.0f, 2.0f)]
 	public float nu = 1.0f;
 	public PlayVariable Nu;
 
@@ -94,15 +94,15 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public PlayVariable A;
 	
 	[Range(0.0f, 3.0f)]
-	public float b = 1.0f;
+	public float b = 0.5f;
 	public PlayVariable B;
 	
 	[Range(0.0f, 3.0f)]
-	public float alpha = 1.0f;
+	public float alpha = 0.25f;
 	public PlayVariable Alpha;
 	
 	[Range(0.0f, 3.0f)]
-	public float beta = 1.0f;
+	public float beta = 1.25f;
 	public PlayVariable Beta;
 	
 	private PlayVariable[] playVariables;
@@ -116,20 +116,20 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	private float lastBlackOverlayOpacity = 1.0f;
 
 	[Range(0.0f, 1.0f)]
-	public float epilepsyOpacity = 1.0f;
-	private float lastEpilepsyOpacity = 1.0f;
+	public float epilepsyOpacity = 0.0f;
+	private float lastEpilepsyOpacity = 0.0f;
 
 	[Range(0.0f, 1.0f)]
-	public float equationOpacity = 1.0f;
-	private float lastEquationOpacity = 1.0f;
+	public float equationOpacity = 0.0f;
+	private float lastEquationOpacity = 0.0f;
 
 	[Range(0.0f, 1.0f)]
-	public float axesOpacity = 1.0f;
-	private float lastAxesOpacity = 1.0f;
+	public float axesOpacity = 0.0f;
+	private float lastAxesOpacity = 0.0f;
 
 	[Range(0.0f, 1.0f)]
-	public float coordinatesOpacity = 1.0f;
-	private float lastCoordinatesOpacity = 1.0f;
+	public float coordinatesOpacity = 0.0f;
+	private float lastCoordinatesOpacity = 0.0f;
 
 	[Range(0.0f, 1.0f)]
 	public float dashboardOpacity = 1.0f;
@@ -148,8 +148,8 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	private float lastCamBaseAngle = 0.0f;
 
 	[Range(0.0f, 8.0f)]
-	public float camRadius = 4.0f;
-	private float lastCamRadius = 4.0f;
+	public float camRadius = 5.0f;
+	private float lastCamRadius = 5.0f;
 
 	protected void Start()
 	{
