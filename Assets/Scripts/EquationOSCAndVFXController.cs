@@ -231,7 +231,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 
 		if (address == "/k0") {	k0 = 10 * value; } // [0, 10]
 		else if (address == "/e0") { e0 = 10 * value; } // [0, 10]
-		else if (address == "/lambda") { lambda = -3 + 6 * value; } // [-3, 3]
+		else if (address == "/lambda") { lambda = 2 * value; } // [0, 2]
 		else if (address == "/nu") { nu = 2 * value; } // [0, 2]
 		else if (address == "/eta") { eta = 2 * value; } // [0, 2]
 		else if (address == "/a") { a = -3 + 6 * value; } // [-3, 3]
