@@ -4673,7 +4673,7 @@ MonoBehaviour:
   dashboardMode: 1
   togglePositiveCorner: 0
   camSpeed: 0.3
-  camBaseAngle: 0
+  camBaseAngle: 1
   camRadius: 5
 --- !u!73398921 &560340079
 VFXRenderer:

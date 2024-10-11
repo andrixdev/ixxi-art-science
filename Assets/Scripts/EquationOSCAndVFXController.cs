@@ -91,7 +91,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public PlayVariable Lambda;
 	
 	[Range(0.0f, 2.0f)]
-	public float nu = 1.0f;
+	public float nu = 0.1f;
 	public PlayVariable Nu;
 
 	[Range(0.0f, 2.0f)]
