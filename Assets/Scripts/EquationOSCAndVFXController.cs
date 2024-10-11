@@ -25,14 +25,23 @@ public class EquationOSCAndVFXController : MonoBehaviour
 
 	// Dashboard variables (the first 9 variables are displayed)
 	public TextMeshProUGUI slot1;
+	public TextMeshProUGUI slot1bis; 
 	public TextMeshProUGUI slot2;
+	public TextMeshProUGUI slot2bis;
 	public TextMeshProUGUI slot3;
+	public TextMeshProUGUI slot3bis;
 	public TextMeshProUGUI slot4;
+	public TextMeshProUGUI slot4bis;
 	public TextMeshProUGUI slot5;
+	public TextMeshProUGUI slot5bis;
 	public TextMeshProUGUI slot6;
+	public TextMeshProUGUI slot6bis;
 	public TextMeshProUGUI slot7;
+	public TextMeshProUGUI slot7bis;
 	public TextMeshProUGUI slot8;
+	public TextMeshProUGUI slot8bis;
 	public TextMeshProUGUI slot9;
+	public TextMeshProUGUI slot9bis;
 
 	// Axes coordinates canvas
 	public Canvas _coordinatesCanvas;
@@ -157,15 +166,15 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		_coordinates = _coordinatesCanvas.GetComponentsInChildren<TextMeshProUGUI>();
 
 		// Store all play variables in an array
-		K0 = new PlayVariable("k0", k0);
-		E0 = new PlayVariable("E0", e0);
-		Lambda = new PlayVariable("lambda", lambda);
-		Nu = new PlayVariable("nu", nu);
-		Eta = new PlayVariable("eta", eta);
+		K0 = new PlayVariable("k", k0); // 0 appended in UI
+		E0 = new PlayVariable("E", e0); // 0 appended in UI
+		Lambda = new PlayVariable("λ", lambda); // α β γ δ ε π Δ ν
+		Nu = new PlayVariable("ν", nu);
+		Eta = new PlayVariable("η", eta);
 		A = new PlayVariable("a", a);
 		B = new PlayVariable("b", b);
-		Alpha = new PlayVariable("alpha", alpha);
-		Beta = new PlayVariable("beta", beta);
+		Alpha = new PlayVariable("α", alpha);
+		Beta = new PlayVariable("β", beta);
 
 		MasterIntensity = new PlayVariable("masterIntensity", masterIntensity);
 		EquationIntensity = new PlayVariable("equationIntensity", equationIntensity);
@@ -406,31 +415,67 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	{
 		// Compute smoothed dashboard opacity (square power law for smoother control)
 		float dashOpa = Mathf.Pow(dashboardOpacity, 2.0f);
+		PlayVariable[] sv = sortedVariables;
 
 		// dashboardMode : true => fading with time and reordered (last changed variable on top), false => always displayed and in the same order
 		if (dashboardMode)
 		{
-			slot1.color = new Color(1, 1, 1, sortedVariables[0].getOpacity() * dashOpa);
-			slot2.color = new Color(1, 1, 1, sortedVariables[1].getOpacity() * dashOpa);
-			slot3.color = new Color(1, 1, 1, sortedVariables[2].getOpacity() * dashOpa);
-			slot4.color = new Color(1, 1, 1, sortedVariables[3].getOpacity() * dashOpa);
-			slot5.color = new Color(1, 1, 1, sortedVariables[4].getOpacity() * dashOpa);
-			slot6.color = new Color(1, 1, 1, sortedVariables[5].getOpacity() * dashOpa);
-			slot7.color = new Color(1, 1, 1, sortedVariables[6].getOpacity() * dashOpa);
-			slot8.color = new Color(1, 1, 1, sortedVariables[7].getOpacity() * dashOpa);
-			slot9.color = new Color(1, 1, 1, sortedVariables[8].getOpacity() * dashOpa);
+			slot1.color = new Color(1, 1, 1, sv[0].getOpacity() * dashOpa);
+			float bis1opa = (sv[0].name == "k" || sv[0].name == "E") ? sv[0].getOpacity() * dashOpa : 0;
+			slot1bis.color = new Color(1, 1, 1, bis1opa);
+			
+			slot2.color = new Color(1, 1, 1, sv[1].getOpacity() * dashOpa);
+			float bis2opa = (sv[1].name == "k" || sv[1].name == "E") ? sv[1].getOpacity() * dashOpa : 0;
+			slot2bis.color = new Color(1, 1, 1, bis2opa);
+			
+			slot3.color = new Color(1, 1, 1, sv[2].getOpacity() * dashOpa);
+			float bis3opa = (sv[2].name == "k" || sv[2].name == "E") ? sv[2].getOpacity() * dashOpa : 0;
+			slot3bis.color = new Color(1, 1, 1, bis3opa);
+			
+			slot4.color = new Color(1, 1, 1, sv[3].getOpacity() * dashOpa);
+			float bis4opa = (sv[3].name == "k" || sv[3].name == "E") ? sv[3].getOpacity() * dashOpa : 0;
+			slot4bis.color = new Color(1, 1, 1, bis4opa);
+			
+			slot5.color = new Color(1, 1, 1, sv[4].getOpacity() * dashOpa);
+			float bis5opa = (sv[4].name == "k" || sv[4].name == "E") ? sv[4].getOpacity() * dashOpa : 0;
+			slot5bis.color = new Color(1, 1, 1, bis5opa);
+			
+			slot6.color = new Color(1, 1, 1, sv[5].getOpacity() * dashOpa);
+			float bis6opa = (sv[5].name == "k" || sv[5].name == "E") ? sv[5].getOpacity() * dashOpa : 0;
+			slot6bis.color = new Color(1, 1, 1, bis6opa);
+			
+			slot7.color = new Color(1, 1, 1, sv[6].getOpacity() * dashOpa);
+			float bis7opa = (sv[6].name == "k" || sv[6].name == "E") ? sv[6].getOpacity() * dashOpa : 0;
+			slot7bis.color = new Color(1, 1, 1, bis7opa);
+			
+			slot8.color = new Color(1, 1, 1, sv[7].getOpacity() * dashOpa);
+			float bis8opa = (sv[7].name == "k" || sv[7].name == "E") ? sv[7].getOpacity() * dashOpa : 0;
+			slot8bis.color = new Color(1, 1, 1, bis8opa);
+			
+			slot9.color = new Color(1, 1, 1, sv[8].getOpacity() * dashOpa);
+			float bis9opa = (sv[8].name == "k" || sv[8].name == "E") ? sv[8].getOpacity() * dashOpa : 0;
+			slot9bis.color = new Color(1, 1, 1, bis9opa);
 		}
 		else
 		{
 			slot1.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot1bis.color = new Color(1, 1, 1, 1 * dashOpa);
 			slot2.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot2bis.color = new Color(1, 1, 1, 1 * dashOpa);
 			slot3.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot3bis.color = new Color(1, 1, 1, 0);
 			slot4.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot4bis.color = new Color(1, 1, 1, 0);
 			slot5.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot5bis.color = new Color(1, 1, 1, 0);
 			slot6.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot6bis.color = new Color(1, 1, 1, 0);
 			slot7.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot7bis.color = new Color(1, 1, 1, 0);
 			slot8.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot8bis.color = new Color(1, 1, 1, 0);
 			slot9.color = new Color(1, 1, 1, 1 * dashOpa);
+			slot9bis.color = new Color(1, 1, 1, 0);
 		}
 
 	}
