@@ -4658,8 +4658,8 @@ MonoBehaviour:
   k0: 0
   e0: 0
   lambda: 1.5
-  nu: 0.25
   eta: 0
+  nu: 0.25
   a: 1
   b: 0.5
   alpha: 0.25
@@ -6957,7 +6957,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u03B7  =  0"
+  m_text: "\u03BD  =  0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f1d513e11d6885499bcecb9e61666c5, type: 2}
   m_sharedMaterial: {fileID: -3427957190437646782, guid: 4f1d513e11d6885499bcecb9e61666c5,
@@ -15329,7 +15329,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u03BD  =  0"
+  m_text: "\u03B7  =  0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4f1d513e11d6885499bcecb9e61666c5, type: 2}
   m_sharedMaterial: {fileID: -3427957190437646782, guid: 4f1d513e11d6885499bcecb9e61666c5,

@@ -89,14 +89,14 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	[Range(0.0f, 2.0f)]
 	public float lambda = 1.5f;
 	public PlayVariable Lambda;
-	
-	[Range(0.0f, 2.0f)]
-	public float nu = 0.1f;
-	public PlayVariable Nu;
 
 	[Range(0.0f, 2.0f)]
 	public float eta = 0.0f;
 	public PlayVariable Eta;
+	
+	[Range(0.0f, 2.0f)]
+	public float nu = 0.1f;
+	public PlayVariable Nu;
 	
 	[Range(-3.0f, 3.0f)]
 	public float a = 1.0f;
@@ -169,8 +169,8 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		K0 = new PlayVariable("k", k0); // 0 appended in UI
 		E0 = new PlayVariable("E", e0); // 0 appended in UI
 		Lambda = new PlayVariable("λ", lambda); // α β γ δ ε π Δ ν
-		Nu = new PlayVariable("ν", nu);
 		Eta = new PlayVariable("η", eta);
+		Nu = new PlayVariable("ν", nu);
 		A = new PlayVariable("a", a);
 		B = new PlayVariable("b", b);
 		Alpha = new PlayVariable("α", alpha);
@@ -184,8 +184,8 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		playVariables[0] = K0;
 		playVariables[1] = E0;
 		playVariables[2] = Lambda;
-		playVariables[3] = Nu;
-		playVariables[4] = Eta;
+		playVariables[3] = Eta;
+		playVariables[4] = Nu;
 		playVariables[5] = A;
 		playVariables[6] = B;
 		playVariables[7] = Alpha;
@@ -202,8 +202,8 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		receiver.Bind("/k0", HandleMessage);
 		receiver.Bind("/e0", HandleMessage);
 		receiver.Bind("/lambda", HandleMessage);
-		receiver.Bind("/nu", HandleMessage);
 		receiver.Bind("/eta", HandleMessage);
+		receiver.Bind("/nu", HandleMessage);
 		receiver.Bind("/a", HandleMessage);
 		receiver.Bind("/b", HandleMessage);
 		receiver.Bind("/alpha", HandleMessage);
@@ -241,8 +241,8 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		if (address == "/k0") {	k0 = 10 * value; } // [0, 10]
 		else if (address == "/e0") { e0 = 10 * value; } // [0, 10]
 		else if (address == "/lambda") { lambda = 2 * value; } // [0, 2]
-		else if (address == "/nu") { nu = 2 * value; } // [0, 2]
 		else if (address == "/eta") { eta = 2 * value; } // [0, 2]
+		else if (address == "/nu") { nu = 2 * value; } // [0, 2]
 		else if (address == "/a") { a = -3 + 6 * value; } // [-3, 3]
 		else if (address == "/b") { b = 3 * value; } // [0, 3]
 		else if (address == "/alpha") { alpha = 3 * value; } // [0, 3]
@@ -283,18 +283,18 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	{
 		bool hasChanged = false;
 
-		if (k0 != playVariables[0].value) 		   				    { playVariables[0].update(k0); equationVFX.SetFloat("k0", playVariables[0].value); hasChanged = true; }
+		if (k0 != playVariables[0].value) 		   			    { playVariables[0].update(k0); equationVFX.SetFloat("k0", playVariables[0].value); hasChanged = true; }
 		if (e0 != playVariables[1].value)						{ playVariables[1].update(e0); equationVFX.SetFloat("E0", playVariables[1].value); hasChanged = true; }
 		if (lambda != playVariables[2].value) 					{ playVariables[2].update(lambda); equationVFX.SetFloat("lambda", playVariables[2].value); hasChanged = true; }
-		if (nu != playVariables[3].value) 		 				{ playVariables[3].update(nu); equationVFX.SetFloat("nu", playVariables[3].value); hasChanged = true; }
-		if (eta != playVariables[4].value) 				 	{ playVariables[4].update(eta); equationVFX.SetFloat("eta", playVariables[4].value); hasChanged = true; }
+		if (eta != playVariables[3].value) 				 		{ playVariables[3].update(eta); equationVFX.SetFloat("eta", playVariables[3].value); hasChanged = true; }
+		if (nu != playVariables[4].value) 		 				{ playVariables[4].update(nu); equationVFX.SetFloat("nu", playVariables[4].value); hasChanged = true; }
 		if (a != playVariables[5].value) 					 	{ playVariables[5].update(a); equationVFX.SetFloat("a", playVariables[5].value); hasChanged = true; }
 		if (b != playVariables[6].value) 						{ playVariables[6].update(b); equationVFX.SetFloat("b", playVariables[6].value); hasChanged = true; }
 		if (alpha != playVariables[7].value) 	 				{ playVariables[7].update(alpha); equationVFX.SetFloat("alpha", playVariables[7].value); hasChanged = true; }
 		if (beta != playVariables[8].value) 	 				{ playVariables[8].update(beta); equationVFX.SetFloat("beta", playVariables[8].value); hasChanged = true; }
 
 		// Smooth with a square law for master inputs (store raw in PlayVariable object, send smoothed value to VFX)
-		if (masterIntensity != playVariables[9].value) 		{ playVariables[9].update(masterIntensity); equationVFX.SetFloat("masterIntensity", Mathf.Pow(playVariables[9].value, 2.0f)); hasChanged = true; }
+		if (masterIntensity != playVariables[9].value) 			{ playVariables[9].update(masterIntensity); equationVFX.SetFloat("masterIntensity", Mathf.Pow(playVariables[9].value, 2.0f)); hasChanged = true; }
 		if (equationIntensity != playVariables[10].value) 		{ playVariables[10].update(equationIntensity); equationVFX.SetFloat("equationIntensity", Mathf.Pow(playVariables[10].value, 2.0f)); hasChanged = true; }
 		if (turbulenceIntensity != playVariables[11].value) 	{ playVariables[11].update(turbulenceIntensity); equationVFX.SetFloat("turbulenceIntensity", Mathf.Pow(playVariables[11].value, 2.0f)); hasChanged = true; }
 
