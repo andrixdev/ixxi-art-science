@@ -65,15 +65,15 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	
 	[Range(0.0f, 1.0f)]
 	public float masterIntensity = 1.0f;
-	public PlayVariable MasterIntensity;
+	private float lastMasterIntensity = 1.0f;
 	
 	[Range(0.0f, 1.0f)]
 	public float equationIntensity = 1.0f;
-	public PlayVariable EquationIntensity;
+	private float lastEquationIntensity = 1.0f;
 	
 	[Range(0.0f, 1.0f)]
 	public float turbulenceIntensity = 0.0f;
-	public PlayVariable TurbulenceIntensity;
+	private float lastTurbulenceIntensity = 1.0f;
 
 	// Controls : Equation variables
 	[Header("Equation variables")]
@@ -142,8 +142,8 @@ public class EquationOSCAndVFXController : MonoBehaviour
 
 	[Range(0.0f, 1.0f)]
 	public float dashboardOpacity = 1.0f;
-	public bool dashboardMode = false;
-	private bool lastDashboardMode = false;
+	public bool dashboardMode = true;
+	private bool lastDashboardMode = true;
 
 	public bool togglePositiveCorner = true;
 	private bool lastTogglePositionCorner = true;
@@ -176,11 +176,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		Alpha = new PlayVariable("α", alpha);
 		Beta = new PlayVariable("β", beta);
 
-		MasterIntensity = new PlayVariable("masterIntensity", masterIntensity);
-		EquationIntensity = new PlayVariable("equationIntensity", equationIntensity);
-		TurbulenceIntensity = new PlayVariable("turbulenceIntensity", turbulenceIntensity);
-
-		playVariables = new PlayVariable[12];
+		playVariables = new PlayVariable[9];
 		playVariables[0] = K0;
 		playVariables[1] = E0;
 		playVariables[2] = Lambda;
@@ -190,12 +186,9 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		playVariables[6] = B;
 		playVariables[7] = Alpha;
 		playVariables[8] = Beta;
-		playVariables[9] = MasterIntensity;
-		playVariables[10] = EquationIntensity;
-		playVariables[11] = TurbulenceIntensity;
 
 		// Prepare array that will order displayed value based on last update time
-		sortedVariables = new PlayVariable[12];
+		sortedVariables = new PlayVariable[9];
 		playVariables.CopyTo(sortedVariables, 0);
 
 		// Prepare OSC message reception
@@ -281,8 +274,9 @@ public class EquationOSCAndVFXController : MonoBehaviour
 
 	void Check()
 	{
-		bool hasChanged = false;
 
+		// Detect change for equation variables
+		bool hasChanged = false;
 		if (k0 != playVariables[0].value) 		   			    { playVariables[0].update(k0); equationVFX.SetFloat("k0", playVariables[0].value); hasChanged = true; }
 		if (e0 != playVariables[1].value)						{ playVariables[1].update(e0); equationVFX.SetFloat("E0", playVariables[1].value); hasChanged = true; }
 		if (lambda != playVariables[2].value) 					{ playVariables[2].update(lambda); equationVFX.SetFloat("lambda", playVariables[2].value); hasChanged = true; }
@@ -292,12 +286,6 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		if (b != playVariables[6].value) 						{ playVariables[6].update(b); equationVFX.SetFloat("b", playVariables[6].value); hasChanged = true; }
 		if (alpha != playVariables[7].value) 	 				{ playVariables[7].update(alpha); equationVFX.SetFloat("alpha", playVariables[7].value); hasChanged = true; }
 		if (beta != playVariables[8].value) 	 				{ playVariables[8].update(beta); equationVFX.SetFloat("beta", playVariables[8].value); hasChanged = true; }
-
-		// Smooth with a square law for master inputs (store raw in PlayVariable object, send smoothed value to VFX)
-		if (masterIntensity != playVariables[9].value) 			{ playVariables[9].update(masterIntensity); equationVFX.SetFloat("masterIntensity", Mathf.Pow(playVariables[9].value, 2.0f)); hasChanged = true; }
-		if (equationIntensity != playVariables[10].value) 		{ playVariables[10].update(equationIntensity); equationVFX.SetFloat("equationIntensity", Mathf.Pow(playVariables[10].value, 2.0f)); hasChanged = true; }
-		if (turbulenceIntensity != playVariables[11].value) 	{ playVariables[11].update(turbulenceIntensity); equationVFX.SetFloat("turbulenceIntensity", Mathf.Pow(playVariables[11].value, 2.0f)); hasChanged = true; }
-
 		if (hasChanged)
 		{
 			// Update dashboard values (order by last update time)
@@ -305,6 +293,11 @@ public class EquationOSCAndVFXController : MonoBehaviour
 
 			UpdateDashboardText();
 		}
+
+		// Detect change & smooth with a square law for master input
+		if (masterIntensity != lastMasterIntensity) 			{ equationVFX.SetFloat("masterIntensity", Mathf.Pow(masterIntensity, 2.0f)); }
+		if (equationIntensity != lastEquationIntensity) 		{ equationVFX.SetFloat("equationIntensity", Mathf.Pow(equationIntensity, 2.0f)); }
+		if (turbulenceIntensity != lastTurbulenceIntensity) 	{ equationVFX.SetFloat("turbulenceIntensity", Mathf.Pow(turbulenceIntensity, 2.0f)); }
 
 		// Update positive corner toggle if changed
 		if (lastTogglePositionCorner != togglePositiveCorner)
