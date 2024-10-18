@@ -262,7 +262,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		else if (address == "/lambda") { lambda = 2 * value; } // [0, 2]
 		else if (address == "/eta") { eta = 2 * value; } // [0, 2]
 		else if (address == "/nu") { nu = 2 * value; } // [0, 2]
-		else if (address == "/a") { a = 3 * value; } // [0, 3]
+		else if (address == "/a") { a = -1 + 4 * value; } // [-1, 3]
 		else if (address == "/b") { b = 3 * value; } // [0, 3]
 		else if (address == "/alpha") { alpha = 2 * value; } // [0, 2]
 		else if (address == "/beta") { beta = 3 * value; } // [0, 3]
