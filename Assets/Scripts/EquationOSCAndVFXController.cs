@@ -57,6 +57,12 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public TextMeshProUGUI epilepticSlot1;
 	public TextMeshProUGUI epilepticSlot2;
 
+	// Credits texts and final equation
+	public TextMeshProUGUI creditsText1;
+	public TextMeshProUGUI creditsText2;
+	public TextMeshProUGUI creditsText3;
+	public Image creditsEquationImg;
+
 	// Camera
 	public RotAround cam;
 
@@ -78,11 +84,11 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	// Controls : Equation variables
 	[Header("Equation variables")]
 
-	[Range(0.0f, 10.0f)]
+	[Range(0.0f, 5.0f)]
 	public float k0 = 0.0f;
 	public PlayVariable K0;
 
-	[Range(0.0f, 10.0f)]
+	[Range(0.0f, 5.0f)]
 	public float e0 = 0.0f;
 	public PlayVariable E0;
 	
@@ -94,11 +100,11 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public float eta = 0.0f;
 	public PlayVariable Eta;
 	
-	[Range(0.0f, 2.0f)]
+	[Range(0.0f, 1.0f)]
 	public float nu = 0.1f;
 	public PlayVariable Nu;
 	
-	[Range(-3.0f, 3.0f)]
+	[Range(0.0f, 3.0f)]
 	public float a = 1.0f;
 	public PlayVariable A;
 	
@@ -106,7 +112,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public float b = 0.5f;
 	public PlayVariable B;
 	
-	[Range(0.0f, 3.0f)]
+	[Range(0.0f, 2.0f)]
 	public float alpha = 0.25f;
 	public PlayVariable Alpha;
 	
@@ -121,8 +127,8 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	[Header("Visual controls")]
 
 	[Range(0.0f, 1.0f)]
-	public float blackOverlayOpacity = 1.0f;
-	private float lastBlackOverlayOpacity = 1.0f;
+	public float blackOverlayOpacity = 0.0f;
+	private float lastBlackOverlayOpacity = 0.0f;
 
 	[Range(0.0f, 1.0f)]
 	public float epilepsyOpacity = 0.0f;
@@ -159,6 +165,22 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	[Range(0.0f, 8.0f)]
 	public float camRadius = 5.0f;
 	private float lastCamRadius = 5.0f;
+
+	[Range(0.0f, 1.0f)]
+	public float creditsText1Opacity = 0.0f;
+	private float lastCreditsText1Opacity = 0.0f;
+
+	[Range(0.0f, 1.0f)]
+	public float creditsText2Opacity = 0.0f;
+	private float lastCreditsText2Opacity = 0.0f;
+
+	[Range(0.0f, 1.0f)]
+	public float creditsText3Opacity = 0.0f;
+	private float lastCreditsText3Opacity = 0.0f;
+
+	[Range(0.0f, 1.0f)]
+	public float creditsEquationOpacity = 0.0f;
+	private float lastCreditsEquationOpacity = 0.0f;
 
 	protected void Start()
 	{
@@ -208,6 +230,10 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		receiver.Bind("/axes-opacity", HandleMessage);
 		receiver.Bind("/coordinates-opacity", HandleMessage);
 		receiver.Bind("/dashboard-opacity", HandleMessage);
+		receiver.Bind("/credits-text-1-opacity", HandleMessage);
+		receiver.Bind("/credits-text-2-opacity", HandleMessage);
+		receiver.Bind("/credits-text-3-opacity", HandleMessage);
+		receiver.Bind("/credits-equation-opacity", HandleMessage);
 		receiver.Bind("/cam-speed", HandleMessage);
 		receiver.Bind("/cam-base-angle", HandleMessage);
 		receiver.Bind("/cam-radius", HandleMessage);
@@ -231,14 +257,14 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		string address = message.Address;
 		float value = message.Values[0].FloatValue;
 
-		if (address == "/k0") {	k0 = 10 * value; } // [0, 10]
-		else if (address == "/e0") { e0 = 10 * value; } // [0, 10]
+		if (address == "/k0") {	k0 = 5 * value; } // [0, 5]
+		else if (address == "/e0") { e0 = 5 * value; } // [0, 5]
 		else if (address == "/lambda") { lambda = 2 * value; } // [0, 2]
 		else if (address == "/eta") { eta = 2 * value; } // [0, 2]
 		else if (address == "/nu") { nu = 2 * value; } // [0, 2]
-		else if (address == "/a") { a = -3 + 6 * value; } // [-3, 3]
+		else if (address == "/a") { a = 3 * value; } // [0, 3]
 		else if (address == "/b") { b = 3 * value; } // [0, 3]
-		else if (address == "/alpha") { alpha = 3 * value; } // [0, 3]
+		else if (address == "/alpha") { alpha = 2 * value; } // [0, 2]
 		else if (address == "/beta") { beta = 3 * value; } // [0, 3]
 		else if (address == "/overlay-opacity") { blackOverlayOpacity = value; }
 		else if (address == "/epilepsy-opacity") { epilepsyOpacity = value; }
@@ -246,6 +272,10 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		else if (address == "/axes-opacity") { axesOpacity = value; }
 		else if (address == "/coordinates-opacity") { coordinatesOpacity = value; }
 		else if (address == "/dashboard-opacity") { dashboardOpacity = value; }
+		else if (address == "/credits-text-1-opacity") { creditsText1Opacity = value; }
+		else if (address == "/credits-text-2-opacity") { creditsText2Opacity = value; }
+		else if (address == "/credits-text-3-opacity") { creditsText3Opacity = value; }
+		else if (address == "/credits-equation-opacity") { creditsEquationOpacity = value; }
 		else if (address == "/cam-speed") { camSpeed = -1 + 2 * value; } // [-1, 1]
 		else if (address == "/cam-base-angle") { camBaseAngle = -400 + 800 * value; } // [-400, 400]
 		else if (address == "/cam-radius") { camRadius = 9 * value; } // [0, 9]
@@ -315,7 +345,17 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		}
 
 		// Update opacities if one value changed
-		if (lastBlackOverlayOpacity != blackOverlayOpacity || lastAxesOpacity != axesOpacity || lastCoordinatesOpacity != coordinatesOpacity || lastEquationOpacity != equationOpacity || lastEpilepsyOpacity != epilepsyOpacity)
+		if (
+			lastBlackOverlayOpacity != blackOverlayOpacity
+			|| lastAxesOpacity != axesOpacity
+			|| lastCoordinatesOpacity != coordinatesOpacity
+			|| lastEquationOpacity != equationOpacity
+			|| lastEpilepsyOpacity != epilepsyOpacity
+			|| lastCreditsText1Opacity != creditsText1Opacity
+			|| lastCreditsText2Opacity != creditsText2Opacity
+			|| lastCreditsText3Opacity != creditsText3Opacity
+			|| lastCreditsEquationOpacity != creditsEquationOpacity
+		)
 		{
 			UpdateOpacities();
 		}
@@ -352,12 +392,22 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		epilepticSlot1.color = new Color(1, 1, 1, Mathf.Pow(epilepsyOpacity, 2.0f));
 		epilepticSlot2.color = new Color(1, 1, 1, Mathf.Pow(epilepsyOpacity, 2.0f));
 
+		// Update credits text and final equation opacities (smoothed with square power law)
+		creditsText1.color = new Color(1, 1, 1, Mathf.Pow(creditsText1Opacity, 2.0f));
+		creditsText2.color = new Color(1, 1, 1, Mathf.Pow(creditsText2Opacity, 2.0f));
+		creditsText3.color = new Color(1, 1, 1, Mathf.Pow(creditsText3Opacity, 2.0f));
+		creditsEquationImg.color = new Color(1, 1, 1, Mathf.Pow(creditsEquationOpacity, 2.0f));
+
 		// Update value buffers
 		lastBlackOverlayOpacity = blackOverlayOpacity;
 		lastAxesOpacity = axesOpacity;
 		lastCoordinatesOpacity = coordinatesOpacity;
 		lastEquationOpacity = equationOpacity;
 		lastEpilepsyOpacity = epilepsyOpacity;
+		lastCreditsText1Opacity = creditsText1Opacity;
+		lastCreditsText2Opacity = creditsText2Opacity;
+		lastCreditsText3Opacity = creditsText3Opacity;
+		lastCreditsEquationOpacity = creditsEquationOpacity;
 	}
 
 	void UpdateCamera()
