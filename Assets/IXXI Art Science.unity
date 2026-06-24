@@ -5942,7 +5942,7 @@ MonoBehaviour:
   creditsText2: {fileID: 2438708456881335128}
   creditsText3: {fileID: 2484025321607145434}
   creditsEquationImg: {fileID: 4496869871372989491}
-  cam: {fileID: 560340082}
+  rot: {fileID: 560340082}
   masterIntensity: 1
   equationIntensity: 1
   turbulenceIntensity: 0
@@ -5963,8 +5963,8 @@ MonoBehaviour:
   dashboardOpacity: 1
   dashboardMode: 1
   togglePositiveCorner: 0
-  camSpeed: 0.3
-  camBaseAngle: 1
+  rotSpeed: 0.15
+  rotBaseAngle: 0
   motionLerpValue: 0
   creditsText1Opacity: 1
   creditsText2Opacity: 0

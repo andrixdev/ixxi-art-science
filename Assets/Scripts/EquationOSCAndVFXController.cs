@@ -63,8 +63,8 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public TextMeshProUGUI creditsText3;
 	public Image creditsEquationImg;
 
-	// Camera
-	public RotGently cam; // Is self now
+	// Rotation
+	public RotGently rot;
 
 	// Controls : Master system variables
 	[Header("Master system variables")]
@@ -155,12 +155,12 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	private bool lastTogglePositionCorner = true;
 
 	[Range(-1.0f, 1.0f)]
-	public float camSpeed = 0.15f;
-	private float lastCamSpeed = 0.1f;
+	public float rotSpeed = 0.15f;
+	private float lastRotSpeed = 0.1f;
 
 	[Range(-400.0f, 400.0f)]
-	public float camBaseAngle = 0.0f;
-	private float lastCamBaseAngle = 0.0f;
+	public float rotBaseAngle = 0.0f;
+	private float lastRotBaseAngle = 0.0f;
 
 	[Range(0.0f, 1.0f)]
 	public float motionLerpValue = 0.0f;
@@ -234,9 +234,9 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		receiver.Bind("/credits-text-2-opacity", HandleMessage);
 		receiver.Bind("/credits-text-3-opacity", HandleMessage);
 		receiver.Bind("/credits-equation-opacity", HandleMessage);
-		receiver.Bind("/cam-speed", HandleMessage);
-		receiver.Bind("/cam-base-angle", HandleMessage);
-		receiver.Bind("/cam-motion-lerp", HandleMessage);
+		receiver.Bind("/rot-speed", HandleMessage);
+		receiver.Bind("/rot-base-angle", HandleMessage);
+		receiver.Bind("/motion-lerp", HandleMessage);
 
 		receiver.Bind("/dashboard-mode", HandleBoolMessage);
 		receiver.Bind("/toggle-corner", HandleBoolMessage);
@@ -276,9 +276,9 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		else if (address == "/credits-text-2-opacity") { creditsText2Opacity = value; }
 		else if (address == "/credits-text-3-opacity") { creditsText3Opacity = value; }
 		else if (address == "/credits-equation-opacity") { creditsEquationOpacity = value; }
-		else if (address == "/cam-speed") { camSpeed = -1 + 2 * value; } // [-1, 1]
-		else if (address == "/cam-base-angle") { camBaseAngle = -400 + 800 * value; } // [-400, 400]
-		else if (address == "/cam-motion-lerp") { motionLerpValue = value; }
+		else if (address == "/rot-speed") { rotSpeed = -1 + 2 * value; } // [-1, 1]
+		else if (address == "/rot-base-angle") { rotBaseAngle = -400 + 800 * value; } // [-400, 400]
+		else if (address == "/motion-lerp") { motionLerpValue = value; }
 		else if (address == "/master") { masterIntensity = value; }
 		else if (address == "/equation") { equationIntensity = value; }
 		else if (address == "/turbulence") { turbulenceIntensity = value; }
@@ -360,10 +360,10 @@ public class EquationOSCAndVFXController : MonoBehaviour
 			UpdateOpacities();
 		}
 		
-		// Update camera variables if one value changed
-		if (lastCamSpeed != camSpeed ||	lastCamBaseAngle != camBaseAngle ||	lastMotionLerpValue != motionLerpValue)
+		// Update rotation variables if one value changed
+		if (lastRotSpeed != rotSpeed ||	lastRotBaseAngle != rotBaseAngle ||	lastMotionLerpValue != motionLerpValue)
 		{
-			UpdateCamera();
+			UpdateRotation();
 		}
 
 		// Always update dashboard text opacities
@@ -410,17 +410,17 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		lastCreditsEquationOpacity = creditsEquationOpacity;
 	}
 
-	void UpdateCamera()
+	void UpdateRotation()
 	{
-		// Update camera variables
-		float smoothedCamSpeed = Mathf.Sign(camSpeed) * Mathf.Pow(Mathf.Abs(camSpeed), 3.0f);
-		cam.revolutionSpeed = smoothedCamSpeed;
-		cam.baseRotAngleY = camBaseAngle;
-		cam.motionLerpValue = motionLerpValue;
+		// Update rotation variables
+		float smoothedRotSpeed = Mathf.Sign(rotSpeed) * Mathf.Pow(Mathf.Abs(rotSpeed), 3.0f);
+		rot.revolutionSpeed = smoothedRotSpeed;
+		rot.baseRotAngleY = rotBaseAngle;
+		rot.motionLerpValue = motionLerpValue;
 
 		// Update value buffers
-		lastCamSpeed = camSpeed;
-		lastCamBaseAngle = camBaseAngle;
+		lastRotSpeed = rotSpeed;
+		lastRotBaseAngle = rotBaseAngle;
 		lastMotionLerpValue = motionLerpValue;
 	}
 
