@@ -64,7 +64,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public Image creditsEquationImg;
 
 	// Camera
-	public RotAround cam;
+	public RotGently cam; // Is self now
 
 	// Controls : Master system variables
 	[Header("Master system variables")]
@@ -162,9 +162,9 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public float camBaseAngle = 0.0f;
 	private float lastCamBaseAngle = 0.0f;
 
-	[Range(0.0f, 8.0f)]
-	public float camRadius = 5.0f;
-	private float lastCamRadius = 5.0f;
+	[Range(0.0f, 1.0f)]
+	public float motionLerpValue = 0.0f;
+	private float lastMotionLerpValue = 0.0f;
 
 	[Range(0.0f, 1.0f)]
 	public float creditsText1Opacity = 0.0f;
@@ -236,7 +236,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		receiver.Bind("/credits-equation-opacity", HandleMessage);
 		receiver.Bind("/cam-speed", HandleMessage);
 		receiver.Bind("/cam-base-angle", HandleMessage);
-		receiver.Bind("/cam-radius", HandleMessage);
+		receiver.Bind("/cam-motion-lerp", HandleMessage);
 
 		receiver.Bind("/dashboard-mode", HandleBoolMessage);
 		receiver.Bind("/toggle-corner", HandleBoolMessage);
@@ -278,7 +278,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		else if (address == "/credits-equation-opacity") { creditsEquationOpacity = value; }
 		else if (address == "/cam-speed") { camSpeed = -1 + 2 * value; } // [-1, 1]
 		else if (address == "/cam-base-angle") { camBaseAngle = -400 + 800 * value; } // [-400, 400]
-		else if (address == "/cam-radius") { camRadius = 9 * value; } // [0, 9]
+		else if (address == "/cam-motion-lerp") { motionLerpValue = value; }
 		else if (address == "/master") { masterIntensity = value; }
 		else if (address == "/equation") { equationIntensity = value; }
 		else if (address == "/turbulence") { turbulenceIntensity = value; }
@@ -361,7 +361,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		}
 		
 		// Update camera variables if one value changed
-		if (lastCamSpeed != camSpeed ||	lastCamBaseAngle != camBaseAngle ||	lastCamRadius != camRadius)
+		if (lastCamSpeed != camSpeed ||	lastCamBaseAngle != camBaseAngle ||	lastMotionLerpValue != motionLerpValue)
 		{
 			UpdateCamera();
 		}
@@ -416,12 +416,12 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		float smoothedCamSpeed = Mathf.Sign(camSpeed) * Mathf.Pow(Mathf.Abs(camSpeed), 3.0f);
 		cam.revolutionSpeed = smoothedCamSpeed;
 		cam.baseRotAngleY = camBaseAngle;
-		cam.radius = camRadius;
+		cam.motionLerpValue = motionLerpValue;
 
 		// Update value buffers
 		lastCamSpeed = camSpeed;
 		lastCamBaseAngle = camBaseAngle;
-		lastCamRadius = camRadius;
+		lastMotionLerpValue = motionLerpValue;
 	}
 
 	void UpdateDashboardText()
