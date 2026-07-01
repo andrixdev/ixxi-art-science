@@ -47,8 +47,9 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public Canvas _coordinatesCanvas;
 	private TextMeshProUGUI[] _coordinates;
 
-	// Black overlay image
-	public Image blackOverlayImg;
+	// Sphere overlay material
+	public Renderer sphereBlackOverlayMeshRenderer;
+	private Material sphereBlackOverlayMaterial;
 
 	// Equation image
 	public Image equationImg;
@@ -244,6 +245,9 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		receiver.Bind("/master", HandleMessage);
 		receiver.Bind("/equation", HandleMessage);
 		receiver.Bind("/turbulence", HandleMessage);
+
+		// Prepare material of black overlay sphere
+		sphereBlackOverlayMaterial = sphereBlackOverlayMeshRenderer.material;
 	}
 
 	void Update()
@@ -374,7 +378,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	void UpdateOpacities()
 	{
 		// Update black overlay opacity (smoothed with ~cubic root power law)
-		blackOverlayImg.color = new Color(1, 1, 1, Mathf.Pow(blackOverlayOpacity, 0.3f));
+		sphereBlackOverlayMaterial.color = new Color(0, 0, 0, Mathf.Pow(blackOverlayOpacity, 0.3f));
 
 		// Update VFX axes opacity (smoothed with square power law)
 		equationVFX.SetFloat("axesOpacity", Mathf.Pow(axesOpacity, 2.0f));
