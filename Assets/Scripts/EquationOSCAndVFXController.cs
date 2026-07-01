@@ -52,17 +52,21 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	private Material sphereBlackOverlayMaterial;
 
 	// Equation image
-	public Image equationImg;
+	//public Image equationImg;
 	
-	// Epileptic warning texts
-	public TextMeshProUGUI epilepticSlot1;
-	public TextMeshProUGUI epilepticSlot2;
+	// Panels
+	public CanvasGroup panel0;
+	public CanvasGroup panel1;
+	public CanvasGroup panel2;
+	public CanvasGroup panel3;
+	public CanvasGroup panel4;
+	public CanvasGroup panel5;
+	public CanvasGroup panel6;
 
-	// Credits texts and final equation
-	public TextMeshProUGUI creditsText1;
-	public TextMeshProUGUI creditsText2;
-	public TextMeshProUGUI creditsText3;
-	public Image creditsEquationImg;
+	// Panel 3 vfxs
+	public VisualEffect panel3vfx1;
+	public VisualEffect panel3vfx2;
+	public VisualEffect panel3vfx3;
 
 	// Rotation
 	public RotGently rot;
@@ -132,12 +136,32 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	private float lastBlackOverlayOpacity = 0.0f;
 
 	[Range(0.0f, 1.0f)]
-	public float epilepsyOpacity = 0.0f;
-	private float lastEpilepsyOpacity = 0.0f;
+	public float panel0Opacity = 0.0f;
+	private float lastPanel0Opacity = 0.0f;
 
 	[Range(0.0f, 1.0f)]
-	public float equationOpacity = 0.0f;
-	private float lastEquationOpacity = 0.0f;
+	public float panel1Opacity = 0.0f;
+	private float lastPanel1Opacity = 0.0f;
+
+	[Range(0.0f, 1.0f)]
+	public float panel2Opacity = 0.0f;
+	private float lastPanel2Opacity = 0.0f;
+	
+	[Range(0.0f, 1.0f)]
+	public float panel3Opacity = 0.0f;
+	private float lastPanel3Opacity = 0.0f;
+	
+	[Range(0.0f, 1.0f)]
+	public float panel4Opacity = 0.0f;
+	private float lastPanel4Opacity = 0.0f;
+	
+	[Range(0.0f, 1.0f)]
+	public float panel5Opacity = 0.0f;
+	private float lastPanel5Opacity = 0.0f;
+	
+	[Range(0.0f, 1.0f)]
+	public float panel6Opacity = 0.0f;
+	private float lastPanel6Opacity = 0.0f;
 
 	[Range(0.0f, 1.0f)]
 	public float axesOpacity = 0.0f;
@@ -166,22 +190,6 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	[Range(0.0f, 1.0f)]
 	public float motionLerpValue = 0.0f;
 	private float lastMotionLerpValue = 0.0f;
-
-	[Range(0.0f, 1.0f)]
-	public float creditsText1Opacity = 0.0f;
-	private float lastCreditsText1Opacity = 0.0f;
-
-	[Range(0.0f, 1.0f)]
-	public float creditsText2Opacity = 0.0f;
-	private float lastCreditsText2Opacity = 0.0f;
-
-	[Range(0.0f, 1.0f)]
-	public float creditsText3Opacity = 0.0f;
-	private float lastCreditsText3Opacity = 0.0f;
-
-	[Range(0.0f, 1.0f)]
-	public float creditsEquationOpacity = 0.0f;
-	private float lastCreditsEquationOpacity = 0.0f;
 
 	protected void Start()
 	{
@@ -226,15 +234,16 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		receiver.Bind("/beta", HandleMessage);
 
 		receiver.Bind("/overlay-opacity", HandleMessage);
-		receiver.Bind("/epilepsy-opacity", HandleMessage);
-		receiver.Bind("/equation-opacity", HandleMessage);
+		receiver.Bind("/panel-0-opacity", HandleMessage);
+		receiver.Bind("/panel-1-opacity", HandleMessage);
+		receiver.Bind("/panel-2-opacity", HandleMessage);
+		receiver.Bind("/panel-3-opacity", HandleMessage);
+		receiver.Bind("/panel-4-opacity", HandleMessage);
+		receiver.Bind("/panel-5-opacity", HandleMessage);
+		receiver.Bind("/panel-6-opacity", HandleMessage);
 		receiver.Bind("/axes-opacity", HandleMessage);
 		receiver.Bind("/coordinates-opacity", HandleMessage);
 		receiver.Bind("/dashboard-opacity", HandleMessage);
-		receiver.Bind("/credits-text-1-opacity", HandleMessage);
-		receiver.Bind("/credits-text-2-opacity", HandleMessage);
-		receiver.Bind("/credits-text-3-opacity", HandleMessage);
-		receiver.Bind("/credits-equation-opacity", HandleMessage);
 		receiver.Bind("/rot-speed", HandleMessage);
 		receiver.Bind("/rot-base-angle", HandleMessage);
 		receiver.Bind("/motion-lerp", HandleMessage);
@@ -248,6 +257,12 @@ public class EquationOSCAndVFXController : MonoBehaviour
 
 		// Prepare material of black overlay sphere
 		sphereBlackOverlayMaterial = sphereBlackOverlayMeshRenderer.material;
+
+		// Boop the update functions to initialize the values
+		UpdateOpacities();
+		UpdateRotation();
+		UpdateDashboardText();
+		UpdateDashboardOpacities();
 	}
 
 	void Update()
@@ -271,15 +286,16 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		else if (address == "/alpha") { alpha = 2 * value; } // [0, 2]
 		else if (address == "/beta") { beta = 3 * value; } // [0, 3]
 		else if (address == "/overlay-opacity") { blackOverlayOpacity = value; }
-		else if (address == "/epilepsy-opacity") { epilepsyOpacity = value; }
-		else if (address == "/equation-opacity") { equationOpacity = value; }
+		else if (address == "/panel-0-opacity") { panel0Opacity = value; }
+		else if (address == "/panel-1-opacity") { panel1Opacity = value; }
+		else if (address == "/panel-2-opacity") { panel2Opacity = value; }
+		else if (address == "/panel-3-opacity") { panel3Opacity = value; }
+		else if (address == "/panel-4-opacity") { panel4Opacity = value; }
+		else if (address == "/panel-5-opacity") { panel5Opacity = value; }
+		else if (address == "/panel-6-opacity") { panel6Opacity = value; }
 		else if (address == "/axes-opacity") { axesOpacity = value; }
 		else if (address == "/coordinates-opacity") { coordinatesOpacity = value; }
 		else if (address == "/dashboard-opacity") { dashboardOpacity = value; }
-		else if (address == "/credits-text-1-opacity") { creditsText1Opacity = value; }
-		else if (address == "/credits-text-2-opacity") { creditsText2Opacity = value; }
-		else if (address == "/credits-text-3-opacity") { creditsText3Opacity = value; }
-		else if (address == "/credits-equation-opacity") { creditsEquationOpacity = value; }
 		else if (address == "/rot-speed") { rotSpeed = -1 + 2 * value; } // [-1, 1]
 		else if (address == "/rot-base-angle") { rotBaseAngle = -400 + 800 * value; } // [-400, 400]
 		else if (address == "/motion-lerp") { motionLerpValue = value; }
@@ -353,12 +369,13 @@ public class EquationOSCAndVFXController : MonoBehaviour
 			lastBlackOverlayOpacity != blackOverlayOpacity
 			|| lastAxesOpacity != axesOpacity
 			|| lastCoordinatesOpacity != coordinatesOpacity
-			|| lastEquationOpacity != equationOpacity
-			|| lastEpilepsyOpacity != epilepsyOpacity
-			|| lastCreditsText1Opacity != creditsText1Opacity
-			|| lastCreditsText2Opacity != creditsText2Opacity
-			|| lastCreditsText3Opacity != creditsText3Opacity
-			|| lastCreditsEquationOpacity != creditsEquationOpacity
+			|| lastPanel0Opacity != panel0Opacity
+			|| lastPanel1Opacity != panel1Opacity
+			|| lastPanel2Opacity != panel2Opacity
+			|| lastPanel3Opacity != panel3Opacity
+			|| lastPanel4Opacity != panel4Opacity
+			|| lastPanel5Opacity != panel5Opacity
+			|| lastPanel6Opacity != panel6Opacity
 		)
 		{
 			UpdateOpacities();
@@ -389,29 +406,37 @@ public class EquationOSCAndVFXController : MonoBehaviour
 			_coord.color = new Color(1, 1, 1, Mathf.Pow(coordinatesOpacity, 2.0f));
 		}
 
-		// Update equation image opacity (smoothed with square power law)
-		equationImg.color = new Color(1, 1, 1, Mathf.Pow(equationOpacity, 2.0f));
-		
-		// Update epilepsy warning opacity (smoothed with square power law)
-		epilepticSlot1.color = new Color(1, 1, 1, Mathf.Pow(epilepsyOpacity, 2.0f));
-		epilepticSlot2.color = new Color(1, 1, 1, Mathf.Pow(epilepsyOpacity, 2.0f));
+		// Keep commented: updating image alpha
+		//equationImg.color = new Color(1, 1, 1, Mathf.Pow(equationOpacity, 2.0f));
+		// Keep commented: updating text alpha
+		//epilepticSlot1.color = new Color(1, 1, 1, Mathf.Pow(epilepsyOpacity, 2.0f));
 
-		// Update credits text and final equation opacities (smoothed with square power law)
-		creditsText1.color = new Color(1, 1, 1, Mathf.Pow(creditsText1Opacity, 2.0f));
-		creditsText2.color = new Color(1, 1, 1, Mathf.Pow(creditsText2Opacity, 2.0f));
-		creditsText3.color = new Color(1, 1, 1, Mathf.Pow(creditsText3Opacity, 2.0f));
-		creditsEquationImg.color = new Color(1, 1, 1, Mathf.Pow(creditsEquationOpacity, 2.0f));
+		// Update panels opacities (smoothed with square power law)
+		panel0.alpha = Mathf.Clamp01(Mathf.Pow(panel0Opacity, 2.0f));
+		panel1.alpha = Mathf.Clamp01(Mathf.Pow(panel1Opacity, 2.0f));
+		panel2.alpha = Mathf.Clamp01(Mathf.Pow(panel2Opacity, 2.0f));
+		panel3.alpha = Mathf.Clamp01(Mathf.Pow(panel3Opacity, 2.0f));
+		panel4.alpha = Mathf.Clamp01(Mathf.Pow(panel4Opacity, 2.0f));
+		panel5.alpha = Mathf.Clamp01(Mathf.Pow(panel5Opacity, 2.0f));
+		panel6.alpha = Mathf.Clamp01(Mathf.Pow(panel6Opacity, 2.0f));
+
+		// Special treat for VFXs inside panels (not affected by CanvasGroup alpha)
+		panel3vfx1.SetFloat("alphaMult", Mathf.Pow(panel3Opacity, 2.0f));
+		panel3vfx2.SetFloat("alphaMult", Mathf.Pow(panel3Opacity, 2.0f));
+		panel3vfx3.SetFloat("alphaMult", Mathf.Pow(panel3Opacity, 2.0f));
 
 		// Update value buffers
 		lastBlackOverlayOpacity = blackOverlayOpacity;
 		lastAxesOpacity = axesOpacity;
 		lastCoordinatesOpacity = coordinatesOpacity;
-		lastEquationOpacity = equationOpacity;
-		lastEpilepsyOpacity = epilepsyOpacity;
-		lastCreditsText1Opacity = creditsText1Opacity;
-		lastCreditsText2Opacity = creditsText2Opacity;
-		lastCreditsText3Opacity = creditsText3Opacity;
-		lastCreditsEquationOpacity = creditsEquationOpacity;
+		lastPanel0Opacity = panel0Opacity;
+		lastPanel1Opacity = panel1Opacity;
+		lastPanel2Opacity = panel2Opacity;
+		lastPanel3Opacity = panel3Opacity;
+		lastPanel4Opacity = panel4Opacity;
+		lastPanel5Opacity = panel5Opacity;
+		lastPanel6Opacity = panel6Opacity;
+
 	}
 
 	void UpdateRotation()
