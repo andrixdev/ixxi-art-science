@@ -191,6 +191,10 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public float motionLerpValue = 0.0f;
 	private float lastMotionLerpValue = 0.0f;
 
+	[Range(0.0f, 2.0f)]
+	public float spawnShapeRotSpeed = 0.0f;
+	private float lastSpawnShapeRotSpeed = 0.0f;
+
 	protected void Start()
 	{
 		// Get all child coordinates from Coordinates Canvas
@@ -247,6 +251,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		receiver.Bind("/rot-speed", HandleMessage);
 		receiver.Bind("/rot-base-angle", HandleMessage);
 		receiver.Bind("/motion-lerp", HandleMessage);
+		receiver.Bind("/spawn-shape-rot-speed", HandleMessage);
 
 		receiver.Bind("/dashboard-mode", HandleBoolMessage);
 		receiver.Bind("/toggle-corner", HandleBoolMessage);
@@ -299,6 +304,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		else if (address == "/rot-speed") { rotSpeed = -1 + 2 * value; } // [-1, 1]
 		else if (address == "/rot-base-angle") { rotBaseAngle = -400 + 800 * value; } // [-400, 400]
 		else if (address == "/motion-lerp") { motionLerpValue = value; }
+		else if (address == "/spawn-shape-rot-speed") { spawnShapeRotSpeed = value; }
 		else if (address == "/master") { masterIntensity = value; }
 		else if (address == "/equation") { equationIntensity = value; }
 		else if (address == "/turbulence") { turbulenceIntensity = value; }
@@ -344,7 +350,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 			UpdateDashboardText();
 		}
 
-		// Detect change & smooth with a square law for master input
+		// Detect change & smooth with a square law for master inputs
 		if (masterIntensity != lastMasterIntensity) 			{ equationVFX.SetFloat("masterIntensity", Mathf.Pow(masterIntensity, 2.0f)); }
 		if (equationIntensity != lastEquationIntensity) 		{ equationVFX.SetFloat("equationIntensity", Mathf.Pow(equationIntensity, 2.0f)); }
 		if (turbulenceIntensity != lastTurbulenceIntensity) 	{ equationVFX.SetFloat("turbulenceIntensity", Mathf.Pow(turbulenceIntensity, 2.0f)); }
@@ -382,7 +388,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		}
 		
 		// Update rotation variables if one value changed
-		if (lastRotSpeed != rotSpeed ||	lastRotBaseAngle != rotBaseAngle ||	lastMotionLerpValue != motionLerpValue)
+		if (lastRotSpeed != rotSpeed ||	lastRotBaseAngle != rotBaseAngle ||	lastMotionLerpValue != motionLerpValue || lastSpawnShapeRotSpeed != spawnShapeRotSpeed)
 		{
 			UpdateRotation();
 		}
@@ -451,6 +457,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		lastRotSpeed = rotSpeed;
 		lastRotBaseAngle = rotBaseAngle;
 		lastMotionLerpValue = motionLerpValue;
+		lastSpawnShapeRotSpeed = spawnShapeRotSpeed;
 	}
 
 	void UpdateDashboardText()

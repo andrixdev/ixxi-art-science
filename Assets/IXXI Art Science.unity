@@ -6458,6 +6458,7 @@ MonoBehaviour:
   rotSpeed: 0.37
   rotBaseAngle: 0
   motionLerpValue: 0
+  spawnShapeRotSpeed: 0
 --- !u!73398921 &560340079
 VFXRenderer:
   serializedVersion: 1
@@ -6570,8 +6571,11 @@ VisualEffect:
       - m_Value: 0
         m_Name: turbulenceIntensity
         m_Overridden: 1
-      - m_Value: 0
+      - m_Value: 0.76
         m_Name: spawnShapeRotation
+        m_Overridden: 1
+      - m_Value: 0.54
+        m_Name: spawnShapeRotSpeed
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
