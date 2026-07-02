@@ -191,7 +191,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public float motionLerpValue = 0.0f;
 	private float lastMotionLerpValue = 0.0f;
 
-	[Range(0.0f, 2.0f)]
+	[Range(0.0f, 4.0f)]
 	public float spawnShapeRotSpeed = 0.0f;
 	private float lastSpawnShapeRotSpeed = 0.0f;
 
@@ -304,7 +304,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		else if (address == "/rot-speed") { rotSpeed = -1 + 2 * value; } // [-1, 1]
 		else if (address == "/rot-base-angle") { rotBaseAngle = -400 + 800 * value; } // [-400, 400]
 		else if (address == "/motion-lerp") { motionLerpValue = value; }
-		else if (address == "/spawn-shape-rot-speed") { spawnShapeRotSpeed = value; }
+		else if (address == "/spawn-shape-rot-speed") { spawnShapeRotSpeed = 4 * value; } // [0, 4]
 		else if (address == "/master") { masterIntensity = value; }
 		else if (address == "/equation") { equationIntensity = value; }
 		else if (address == "/turbulence") { turbulenceIntensity = value; }
@@ -452,6 +452,8 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		rot.revolutionSpeed = smoothedRotSpeed;
 		rot.baseRotAngleY = rotBaseAngle;
 		rot.motionLerpValue = motionLerpValue;
+
+		equationVFX.SetFloat("spawnShapeRotSpeed", spawnShapeRotSpeed);
 
 		// Update value buffers
 		lastRotSpeed = rotSpeed;
