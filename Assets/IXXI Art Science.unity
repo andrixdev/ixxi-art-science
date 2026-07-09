@@ -22681,7 +22681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8277428557629751550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23440,8 +23440,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Faisons vibrer ce mod\xE8le math\xE9matique dans son plus beau milieu
-    : l'espace des phases..."
+  m_text: "Son espace de danse \xE0 9 dimensions s'ouvre ce soir\nAllons ensemble
+    \xE0 sa rencontre..."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5803128fa6f62e344af7bae9bffb6dbd, type: 2}
   m_sharedMaterial: {fileID: -2375619273385232981, guid: 5803128fa6f62e344af7bae9bffb6dbd,

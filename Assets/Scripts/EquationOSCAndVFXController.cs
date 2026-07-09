@@ -97,8 +97,8 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public float e0 = 0.0f;
 	public PlayVariable E0;
 	
-	[Range(0.0f, 2.0f)]
-	public float lambda = 1.5f;
+	[Range(0.1f, 2.0f)]
+	public float lambda = 0.75f;
 	public PlayVariable Lambda;
 
 	[Range(0.0f, 2.0f)]
@@ -283,7 +283,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 
 		if (address == "/k0") {	k0 = 5 * value; } // [0, 5]
 		else if (address == "/e0") { e0 = 5 * value; } // [0, 5]
-		else if (address == "/lambda") { lambda = 2 * value; } // [0, 2]
+		else if (address == "/lambda") { lambda = 0.1f + 1.9f * value; } // [0.1, 2.0]
 		else if (address == "/eta") { eta = 2 * value; } // [0, 2]
 		else if (address == "/nu") { nu = 2 * value; } // [0, 2]
 		else if (address == "/a") { a = -1 + 4 * value; } // [-1, 3]
