@@ -1,5 +1,5 @@
 ﻿/** 
- * ANDRIX © 2024, based on the extOSC library (Vladimir Sigalkin), MIT License
+ * ANDRIX © 2024-2026, based on the extOSC library (Vladimir Sigalkin), MIT License
  */
 
 using System;
@@ -13,9 +13,6 @@ using TMPro;
 
 public class EquationOSCAndVFXController : MonoBehaviour
 {
-
-	//[Header("OSC Settings")]
-	//public OSCTransmitter transmitter;
 
 	[Header("OSC Receiver")]
 	public OSCReceiver receiver;
@@ -131,6 +128,12 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	// Controls : Visual controls
 	[Header("Visual controls")]
 
+	public bool languageIsEnglish = true;
+	private bool lastLanguageIsEnglish = true;
+
+	public List<TextMeshProUGUI> frenchTexts = new List<TextMeshProUGUI>();
+	public List<TextMeshProUGUI> englishTexts = new List<TextMeshProUGUI>();
+
 	[Range(0.0f, 1.0f)]
 	public float blackOverlayOpacity = 0.0f;
 	private float lastBlackOverlayOpacity = 0.0f;
@@ -237,6 +240,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 		receiver.Bind("/alpha", HandleMessage);
 		receiver.Bind("/beta", HandleMessage);
 
+		receiver.Bind("/language", HandleBoolMessage);
 		receiver.Bind("/overlay-opacity", HandleMessage);
 		receiver.Bind("/panel-0-opacity", HandleMessage);
 		receiver.Bind("/panel-1-opacity", HandleMessage);
@@ -322,6 +326,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 
 		if (address == "/dashboard-mode") {	dashboardMode = value; }
 		else if (address == "/toggle-corner") { togglePositiveCorner = value; }
+		else if (address == "/language") { languageIsEnglish = value; }
 		else
 		{
 			Debug.LogWarning("OSC address not recognized (Bool section): " + address);
@@ -361,12 +366,16 @@ public class EquationOSCAndVFXController : MonoBehaviour
 			equationVFX.SetBool("togglePositiveCorner", togglePositiveCorner);
 			lastTogglePositionCorner = togglePositiveCorner;
 		}
+		if (lastLanguageIsEnglish != languageIsEnglish)
+		{
+			UpdateLanguageTexts();
+			lastLanguageIsEnglish = languageIsEnglish;
+		}
 
 		// Handle update if one dashboard mode toggles changed
 		if (lastDashboardMode != dashboardMode)
 		{
 			lastDashboardMode = dashboardMode;
-
 			UpdateDashboardText();
 		}
 
@@ -559,5 +568,17 @@ public class EquationOSCAndVFXController : MonoBehaviour
 			slot9bis.color = new Color(1, 1, 1, 0);
 		}
 
+	}
+
+	void UpdateLanguageTexts()
+	{
+		for (int i = 0; i < frenchTexts.Count; i++)
+		{
+			frenchTexts[i].gameObject.SetActive(!languageIsEnglish);
+		}
+		for (int i = 0; i < englishTexts.Count; i++)
+		{
+			englishTexts[i].gameObject.SetActive(languageIsEnglish);
+		}
 	}
 }
