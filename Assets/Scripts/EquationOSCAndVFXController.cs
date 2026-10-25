@@ -102,7 +102,7 @@ public class EquationOSCAndVFXController : MonoBehaviour
 	public float eta = 0.0f;
 	public PlayVariable Eta;
 	
-	[Range(0.0f, 1.0f)]
+	[Range(0.0f, 2.0f)]
 	public float nu = 0.1f;
 	public PlayVariable Nu;
 	
